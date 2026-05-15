@@ -556,12 +556,20 @@ const teachers = [
   {name:'Agus Setiawan, S.Pd',role:'Guru Olahraga',color:'from-yellow-400 to-yellow-600',icon:'dumbbell'}
 ];
 
-const news = [
-  {title:'SMPN 18 Raih Juara Umum OSN Tingkat Kota',date:'15 Desember 2024',category:'Prestasi',desc:'Siswa-siswi SMPN 18 berhasil meraih juara umum dalam Olimpiade Sains Nasional tingkat Kota Samarinda.',color:'from-blue-500 to-sky'},
-  {title:'Workshop Kurikulum Merdeka Belajar 2025',date:'10 Desember 2024',category:'Pendidikan',desc:'Pelatihan implementasi kurikulum merdeka bagi seluruh guru untuk meningkatkan kualitas pembelajaran.',color:'from-gold to-gold-light'},
-  {title:'Peringatan Hari Guru Nasional',date:'25 November 2024',category:'Kegiatan',desc:'Rangkaian acara peringatan Hari Guru Nasional dengan pentas seni dan penghargaan guru teladan.',color:'from-green-400 to-emerald-500'}
-];
-
+let news = [];
+async function loadNews(){
+  const { data, error } = await supabase
+    .from('berita')
+    .select('*')
+    .order('id', { ascending:false });
+  if(error){
+    console.error(error);
+    return;
+  }
+  news = data;
+  renderNews();
+};
+   
 // ===== RENDER =====
 function renderTeachers(){
   const g=document.getElementById('teachers-grid');
