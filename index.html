@@ -634,7 +634,7 @@ async function loginAdmin(){
 
   const password = document.getElementById('admin-pass').value;
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await sb.auth.signInWithPassword({
     email,
     password
   });
