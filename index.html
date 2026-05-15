@@ -733,28 +733,6 @@ function applyConfig(cfg){
   document.querySelectorAll('h2').forEach(e=>e.style.fontFamily=`${font}, Poppins, sans-serif`);
 }
 
-window.elementSdk.init({
-  defaultConfig,
-  onConfigChange:async(cfg)=>applyConfig(cfg),
-  mapToCapabilities:(cfg)=>({
-    recolorables:[
-      {get:()=>cfg.background_color||defaultConfig.background_color,set:v=>{cfg.background_color=v;window.elementSdk.setConfig({background_color:v})}},
-      {get:()=>cfg.surface_color||defaultConfig.surface_color,set:v=>{cfg.surface_color=v;window.elementSdk.setConfig({surface_color:v})}},
-      {get:()=>cfg.text_color||defaultConfig.text_color,set:v=>{cfg.text_color=v;window.elementSdk.setConfig({text_color:v})}},
-      {get:()=>cfg.primary_action_color||defaultConfig.primary_action_color,set:v=>{cfg.primary_action_color=v;window.elementSdk.setConfig({primary_action_color:v})}},
-      {get:()=>cfg.secondary_action_color||defaultConfig.secondary_action_color,set:v=>{cfg.secondary_action_color=v;window.elementSdk.setConfig({secondary_action_color:v})}}
-    ],
-    borderables:[],
-    fontEditable:{get:()=>cfg.font_family||defaultConfig.font_family,set:v=>{cfg.font_family=v;window.elementSdk.setConfig({font_family:v})}},
-    fontSizeable:{get:()=>cfg.font_size||defaultConfig.font_size,set:v=>{cfg.font_size=v;window.elementSdk.setConfig({font_size:v})}}
-  }),
-  mapToEditPanelValues:(cfg)=>new Map([
-    ['hero_title',cfg.hero_title||defaultConfig.hero_title],
-    ['hero_subtitle',cfg.hero_subtitle||defaultConfig.hero_subtitle],
-    ['visi_text',cfg.visi_text||defaultConfig.visi_text],
-    ['footer_address',cfg.footer_address||defaultConfig.footer_address]
-  ])
-});
 
 // ===== INIT =====
 renderTeachers();
