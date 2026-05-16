@@ -602,7 +602,7 @@ function renderNews(){
         ${n.title}
       </h4>
       <p class="text-xs text-white/50">
-        ${n.desc}
+        ${n.description}
       </p>
     </div>
   </div>
@@ -728,7 +728,7 @@ async function tambahBerita(){
   const category = prompt("Kategori berita:");
   if(!category) return;
 
-  const desc = prompt("Deskripsi berita:");
+  const description = prompt("Deskripsi berita:");
   if(!desc) return;
 
   const image_url = prompt("URL gambar berita:");
@@ -750,7 +750,7 @@ async function tambahBerita(){
 
   if(error){
     console.error(error);
-    alert("Gagal menambah berita");
+    alert(error.message);
     return;
   }
   alert("Berita berhasil ditambahkan");
