@@ -729,7 +729,7 @@ async function tambahBerita(){
   if(!category) return;
 
   const description = prompt("Deskripsi berita:");
-  if(!desc) return;
+  if(!description) return;
 
   const image_url = prompt("URL gambar berita:");
   if(!image_url) return;
@@ -742,7 +742,7 @@ async function tambahBerita(){
       {
         title,
         category,
-        desc,
+        description,
         image_url,
         date: today
       }
