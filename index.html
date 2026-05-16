@@ -720,6 +720,44 @@ function setAdminTab(tab){
   lucide.createIcons();
 }
 
+async function tambahBerita(){
+
+  const title = prompt("Judul berita:");
+  if(!title) return;
+
+  const category = prompt("Kategori berita:");
+  if(!category) return;
+
+  const desc = prompt("Deskripsi berita:");
+  if(!desc) return;
+
+  const image_url = prompt("URL gambar berita:");
+  if(!image_url) return;
+
+  const today = new Date().toLocaleDateString('id-ID');
+
+  const { data, error } = await supabaseClient
+    .from('berita')
+    .insert([
+      {
+        title,
+        category,
+        desc,
+        image_url,
+        date: today
+      }
+    ]);
+
+  if(error){
+    console.error(error);
+    alert("Gagal menambah berita");
+    return;
+  }
+  alert("Berita berhasil ditambahkan");
+  await loadNews();
+  setAdminTab('berita');
+}
+   
 // ===== ELEMENT SDK =====
 const defaultConfig={
   hero_title:'Mewujudkan Generasi Cerdas, Berkarakter, dan Berprestasi',
