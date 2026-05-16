@@ -695,7 +695,15 @@ function setAdminTab(tab){
       <div class="flex items-center gap-3 text-sm"><div class="w-2 h-2 rounded-full bg-gold"></div><span class="text-white/60">Statistik semester diperbarui</span><span class="text-xs text-white/30 ml-auto">1 hari lalu</span></div>
     </div></div>`;
   } else if(tab==='berita'){
-    c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Daftar Berita</h3><button class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"><i data-lucide="plus" style="width:14px;height:14px"></i>Tambah</button></div>
+    c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Daftar Berita</h3>
+    <button
+      onclick="tambahBerita()"
+      class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"
+    >
+      <i data-lucide="plus" style="width:14px;height:14px"></i>
+      Tambah
+    </button>
+    </div>
     <div class="space-y-3">${news.map(n=>`<div class="glass rounded-xl p-4 flex items-center justify-between"><div><div class="font-semibold text-sm">${n.title}</div><div class="text-xs text-white/40 mt-1">${n.date} • ${n.category}</div></div><div class="flex gap-2"><button class="p-2 rounded-lg bg-sky/10 text-sky hover:bg-sky/20 transition-colors"><i data-lucide="edit" style="width:14px;height:14px"></i></button><button class="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button></div></div>`).join('')}</div>`;
   } else if(tab==='guru'){
     c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Data Guru</h3><button class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"><i data-lucide="plus" style="width:14px;height:14px"></i>Tambah</button></div>
