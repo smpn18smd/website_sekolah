@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id" class="h-full" style="scroll-behavior:smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SMP Negeri 18 Samarinda</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins','sans-serif'] },
+          colors: {
+            navy:'#0a1628',
+            gold:'#d4a853',
+            'gold-light':'#f0d68a',
+            royal:'#1a3a6b',
+            sky:'#2d6bc4'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="h-full bg-navy text-white font-poppins overflow-auto" id="app-body">
+
+  <!-- ================= NAVBAR + CONTENT (TETAP SAMA) ================= -->
+  <!-- 👉 semua HTML kamu tetap di sini TANPA DIUBAH -->
+  <!-- karena terlalu panjang, cukup pindahkan apa adanya dari file kamu -->
+
+  <!-- ADMIN PANEL, LOGIN MODAL juga tetap di sini -->
+
+  <!-- JS -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
