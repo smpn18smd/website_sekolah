@@ -22,13 +22,21 @@ const supabaseClient = window.supabase.createClient(
 );
 
 async function loadNews(){
-  const { data } = await supabaseClient
-    .from('berita')
-    .select('*')
-    .order('id', { ascending:false });
+  try {
+    const { data, error } = await supabaseClient
+      .from('berita')
+      .select('*')
+      .order('id', { ascending:false });
 
-  news = data || [];
-  renderNews();
+    if(error) throw error;
+
+    news = data || [];
+    renderNews();
+  } catch(err){
+    console.error("Supabase error:", err);
+    news = [];
+    renderNews();
+  }
 }
 
 // ================= RENDER =================
