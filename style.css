@@ -273,8 +273,7 @@ body{
 
   transform:scale(1.03);
 
-  animation:
-    floatingGuru 6s ease-in-out infinite;
+  animation: floatingGuru 6s ease-in-out infinite;
 }
 
 /* =========================
