@@ -387,46 +387,27 @@ function hideLogin(){
 
 async function loginAdmin(){
 
-  const email =
-    document.getElementById('admin-user').value;
+  const email = document.getElementById('admin-user').value;
 
-  const password =
-    document.getElementById('admin-pass').value;
+  const password = document.getElementById('admin-pass').value;
 
-  if(!email || !password){
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
 
-    alert('Email dan password wajib diisi');
-
+  if(error){
+    alert(error.message);
     return;
   }
 
-  try{
+  hideLogin();
 
-    const { error } =
-      await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
+  document.getElementById('admin-panel').style.display='flex';
 
-    if(error){
+  setAdminTab('dashboard');
 
-      alert(error.message);
-
-      return;
-    }
-
-    alert('Login berhasil');
-
-    hideLogin();
-
-  }catch(err){
-
-    console.error(err);
-
-    alert('Terjadi kesalahan');
-
-  }
-
+  lucide.createIcons();
 }
 
 // ==========================
