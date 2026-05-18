@@ -14,7 +14,7 @@ let news = [];
 
 // ================= SUPABASE =================
 const SUPABASE_URL = "https://etnrxxaijfrivbjlufju.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_KEY";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnJ4eGFpamZyaXZiamx1Zmp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NDU4OTUsImV4cCI6MjA5NDQyMTg5NX0.Hf9Ro831c4nl74UBQ1s8uJOdSBQYOUWesf6coYGX_6Q";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
