@@ -82,6 +82,8 @@ function hideLogin(){
 }
 
 // ================= INIT =================
-renderTeachers();
-loadNews();
-lucide.createIcons();
+window.addEventListener("DOMContentLoaded", () => {
+  renderTeachers();
+  loadNews();
+  lucide.createIcons();
+});
