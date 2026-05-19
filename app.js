@@ -1,0 +1,331 @@
+// ===== DATA =====
+const teachers = [
+  {name:'Drs. Hadi Susanto, M.Pd',role:'Kepala Sekolah',color:'from-gold to-gold-light',icon:'crown'},
+  {name:'Siti Rahmawati, S.Pd',role:'Wakil Kurikulum',color:'from-sky to-blue-400',icon:'book-open'},
+  {name:'Ahmad Fauzi, M.Pd',role:'Guru Matematika',color:'from-green-400 to-emerald-500',icon:'calculator'},
+  {name:'Dewi Lestari, S.Pd',role:'Guru Bahasa Indonesia',color:'from-purple-400 to-purple-600',icon:'pen-tool'},
+  {name:'Budi Prasetyo, S.Pd',role:'Guru IPA',color:'from-cyan-400 to-cyan-600',icon:'flask-conical'},
+  {name:'Nur Hidayah, S.Pd',role:'Guru Bahasa Inggris',color:'from-orange-400 to-orange-600',icon:'globe'},
+  {name:'Rina Marlina, S.Pd',role:'Guru IPS',color:'from-rose-400 to-rose-600',icon:'map'},
+  {name:'Agus Setiawan, S.Pd',role:'Guru Olahraga',color:'from-yellow-400 to-yellow-600',icon:'dumbbell'}
+];
+
+let news = [];
+async function loadNews(){
+  const { data, error } = await supabaseClient
+    .from('berita')
+    .select('*')
+    .order('id', { ascending:false });
+  if(error){
+    console.error(error);
+    return;
+  }
+  news = data;
+  renderNews();
+};
+   
+// ===== RENDER =====
+function renderTeachers(){
+  const g=document.getElementById('teachers-grid');
+  g.innerHTML=teachers.map((t,i)=>`
+  <div class="teacher-card glass rounded-2xl p-6 text-center card-hover section-anim" style="animation-delay:${i*.1}s">
+    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center shadow-lg"><i data-lucide="${t.icon}" style="width:32px;height:32px;color:white"></i></div>
+    <h4 class="font-bold text-sm mb-1">${t.name}</h4>
+    <p class="text-xs text-gold-light/70">${t.role}</p>
+  </div>`).join('');
+}
+
+function renderNews(){
+  const g = document.getElementById('news-grid');
+  g.innerHTML = news.map((n,i)=>`
+  <div class="glass rounded-2xl overflow-hidden card-hover">
+    <img
+      src="${n.image_url}"
+      class="w-full h-40 object-cover"
+    >
+    <div class="p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-[10px] font-semibold px-2 py-1 rounded-full bg-gold/10 text-gold-light">
+          ${n.category}
+        </span>
+        <span class="text-[10px] text-white/30">
+          ${n.date}
+        </span>
+      </div>
+      <h4 class="font-bold text-sm mb-2">
+        ${n.title}
+      </h4>
+      <p class="text-xs text-white/50">
+        ${n.description}
+      </p>
+    </div>
+  </div>
+  `).join('');
+}
+
+// ===== COUNTER ANIMATION =====
+function animateCounters(){
+  document.querySelectorAll('.counter').forEach(el=>{
+    const target=+el.dataset.target;let current=0;
+    const step=target/60;
+    const timer=setInterval(()=>{current+=step;if(current>=target){el.textContent=target;clearInterval(timer)}else{el.textContent=Math.floor(current)}},25);
+  });
+}
+
+// ===== CHART BARS =====
+function animateCharts(){
+  document.querySelectorAll('.chart-bar').forEach(el=>{el.style.transition='width 1.2s ease';el.style.width=el.dataset.width});
+  document.querySelectorAll('.chart-bar-v').forEach(el=>{el.style.transition='height 1.2s ease';el.style.height=el.dataset.height});
+}
+
+// ===== SCROLL ANIMATIONS =====
+function initScrollAnim(){
+  const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('section-visible');e.target.classList.remove('section-hidden')}})},{threshold:.15});
+  document.querySelectorAll('.section-anim').forEach(el=>{el.classList.add('section-hidden');obs.observe(el)});
+  // counters & charts
+  const statObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();animateCharts();statObs.unobserve(e.target)}})},{threshold:.3});
+  const statSec=document.getElementById('statistik');
+  if(statSec)statObs.observe(statSec);
+}
+
+// ===== NAVBAR =====
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('navbar');
+  if(window.scrollY>50){nav.classList.add('bg-navy/95','backdrop-blur-xl','shadow-lg','shadow-navy/50')}
+  else{nav.classList.remove('bg-navy/95','backdrop-blur-xl','shadow-lg','shadow-navy/50')}
+  lastScroll=window.scrollY;
+});
+
+// ===== MOBILE MENU =====
+function toggleMobile(){document.getElementById('mobile-menu').classList.toggle('open')}
+
+// ===== ADMIN =====
+function showAdmin(){document.getElementById('admin-login').style.display='flex'}
+function hideLogin(){document.getElementById('admin-login').style.display='none'}
+
+async function loginAdmin(){
+
+  const email = document.getElementById('admin-user').value;
+
+  const password = document.getElementById('admin-pass').value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  hideLogin();
+
+  document.getElementById('admin-panel').style.display='block';
+
+  setAdminTab('dashboard');
+
+  lucide.createIcons();
+}
+
+function hideAdmin(){document.getElementById('admin-panel').style.display='none'}
+
+function setAdminTab(tab){
+  document.getElementById('admin-title').textContent={dashboard:'Dashboard',berita:'Kelola Berita',guru:'Kelola Guru',statistik:'Statistik'}[tab]||'Dashboard';
+  document.querySelectorAll('.admin-nav-btn').forEach(b=>{b.classList.toggle('bg-white/10',b.dataset.tab===tab);b.classList.toggle('text-gold-light',b.dataset.tab===tab)});
+  const c=document.getElementById('admin-content');
+  if(tab==='dashboard'){
+    c.innerHTML=`<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Siswa</div><div class="text-2xl font-bold gradient-text">420</div></div>
+      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Guru</div><div class="text-2xl font-bold gradient-text">25</div></div>
+      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Berita Aktif</div><div class="text-2xl font-bold gradient-text">${news.length}</div></div>
+      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Prestasi</div><div class="text-2xl font-bold gradient-text"></div></div>
+    </div>
+    <div class="glass rounded-xl p-6"><h3 class="font-bold mb-4">Aktivitas Terkini</h3>
+    <div class="space-y-3">
+      <div class="flex items-center gap-3 text-sm"><div class="w-2 h-2 rounded-full bg-green-400"></div><span class="text-white/60">Berita baru dipublikasikan — OSN Tingkat Kota</span><span class="text-xs text-white/30 ml-auto">2 jam lalu</span></div>
+      <div class="flex items-center gap-3 text-sm"><div class="w-2 h-2 rounded-full bg-blue-400"></div><span class="text-white/60">Data guru diperbarui</span><span class="text-xs text-white/30 ml-auto">5 jam lalu</span></div>
+      <div class="flex items-center gap-3 text-sm"><div class="w-2 h-2 rounded-full bg-gold"></div><span class="text-white/60">Statistik semester diperbarui</span><span class="text-xs text-white/30 ml-auto">1 hari lalu</span></div>
+    </div></div>`;
+  } else if(tab==='berita'){
+    c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Daftar Berita</h3>
+    <button
+      onclick="tambahBerita()"
+      class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"
+    >
+      <i data-lucide="plus" style="width:14px;height:14px"></i>
+      Tambah
+    </button>
+    </div>
+    <div class="space-y-3">${news.map(n=>`<div class="glass rounded-xl p-4 flex items-center justify-between"><div><div class="font-semibold text-sm">${n.title}</div><div class="text-xs text-white/40 mt-1">${n.date} • ${n.category}</div></div><div class="flex gap-2"><button class="p-2 rounded-lg bg-sky/10 text-sky hover:bg-sky/20 transition-colors"><i data-lucide="edit" style="width:14px;height:14px"></i></button><button class="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button></div></div>`).join('')}</div>`;
+  } else if(tab==='guru'){
+    c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Data Guru</h3><button onclick="tambahBerita()" class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"><i data-lucide="plus" style="width:14px;height:14px"></i>Tambah</button></div>
+    <div class="grid sm:grid-cols-2 gap-3">${teachers.map(t=>`<div class="glass rounded-xl p-4 flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center flex-shrink-0"><i data-lucide="${t.icon}" style="width:18px;height:18px;color:white"></i></div><div><div class="font-semibold text-sm">${t.name}</div><div class="text-xs text-white/40">${t.role}</div></div></div>`).join('')}</div>`;
+  } else if(tab==='statistik'){
+    c.innerHTML=`<h3 class="font-bold mb-6">Data Statistik</h3>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Jumlah Siswa</label><div class="text-3xl font-black gradient-text">420</div></div>
+      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Jumlah Guru</label><div class="text-3xl font-black gradient-text">52</div></div>
+      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Prestasi</label><div class="text-3xl font-black gradient-text">53</div></div>
+      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Ekstrakurikuler</label><div class="text-3xl font-black gradient-text">12</div></div>
+    </div>`;
+  }
+  lucide.createIcons();
+}
+
+async function tambahBerita(){
+
+  const title = prompt("Judul berita:");
+  if(!title) return;
+
+  const category = prompt("Kategori berita:");
+  if(!category) return;
+
+  const description = prompt("Deskripsi berita:");
+  if(!description) return;
+
+  const image_url = prompt("URL gambar berita:");
+  if(!image_url) return;
+
+  const today = new Date().toLocaleDateString('id-ID');
+
+  const { data, error } = await supabaseClient
+    .from('berita')
+    .insert([
+      {
+        title,
+        category,
+        description,
+        image_url,
+        date: today
+      }
+    ]);
+
+  if(error){
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+  alert("Berita berhasil ditambahkan");
+  await loadNews();
+  setAdminTab('berita');
+}
+   
+// ===== ELEMENT SDK =====
+const defaultConfig={
+  hero_title:'Mewujudkan Generasi Cerdas, Berkarakter, dan Berprestasi',
+  hero_subtitle:'Membangun masa depan cerah melalui pendidikan berkualitas, karakter unggul, dan prestasi gemilang di SMP Negeri 18 Samarinda.',
+  visi_text:'"Unggul Prestasi Akademik dan Non Akademik Serta Berkarakter Mulia."',
+  footer_address:'Jl. Cipto Mangunkusumo Gang 2 RT.04 No.39 Kel. Harapan Baru, Kec. Loa Janan Ilir Samarinda, Kalimantan Timur',
+  background_color:'#0a1628',
+  surface_color:'#1a3a6b',
+  text_color:'#ffffff',
+  primary_action_color:'#d4a853',
+  secondary_action_color:'#2d6bc4',
+  font_family:'Poppins',
+  font_size:16
+};
+
+function applyConfig(cfg){
+  const h=document.getElementById('hero-title');
+  if(h){
+    const t=cfg.hero_title||defaultConfig.hero_title;
+    const parts=t.split(',');
+    if(parts.length>=2){h.innerHTML=parts[0]+', <span class="gradient-text">'+parts.slice(1).join(',')+'</span>'}
+    else h.textContent=t;
+  }
+  const s=document.getElementById('hero-subtitle');if(s)s.textContent=cfg.hero_subtitle||defaultConfig.hero_subtitle;
+  const v=document.getElementById('visi-content');if(v)v.textContent=cfg.visi_text||defaultConfig.visi_text;
+  const f=document.getElementById('footer-address');if(f)f.textContent=cfg.footer_address||defaultConfig.footer_address;
+
+  const bg=cfg.background_color||defaultConfig.background_color;
+  const sf=cfg.surface_color||defaultConfig.surface_color;
+  const tc=cfg.text_color||defaultConfig.text_color;
+  const pa=cfg.primary_action_color||defaultConfig.primary_action_color;
+  const sa=cfg.secondary_action_color||defaultConfig.secondary_action_color;
+  document.body.style.backgroundColor=bg;
+  document.body.style.color=tc;
+
+  const font=cfg.font_family||defaultConfig.font_family;
+  const size=cfg.font_size||defaultConfig.font_size;
+  document.body.style.fontFamily=`${font}, Poppins, sans-serif`;
+  document.body.style.fontSize=size+'px';
+  document.querySelectorAll('h1').forEach(e=>e.style.fontFamily=`${font}, Poppins, sans-serif`);
+  document.querySelectorAll('h2').forEach(e=>e.style.fontFamily=`${font}, Poppins, sans-serif`);
+}
+
+function updateDateTime(){
+  const el = document.getElementById('live-datetime');
+
+  if(!el) return;
+
+  const now = new Date();
+
+  const tanggal = now.toLocaleDateString('id-ID', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  const jam = now.toLocaleTimeString('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  }).replace(/\./g, ':');
+
+  el.textContent = `${tanggal} | ${jam}`;
+}
+
+
+
+updateDateTime();
+
+setInterval(updateDateTime, 1000);
+ 
+// ===== TOTAL SISWA OTOMATIS =====
+function updateTotalSiswaAktif() {
+
+  // Ambil semua angka siswa per tingkat
+  const jumlahSiswa = document.querySelectorAll('#statistik .flex.justify-between span:last-child');
+
+  let total = 0;
+
+  jumlahSiswa.forEach(el => {
+    const angka = parseInt(el.textContent.trim()) || 0;
+    total += angka;
+  });
+
+  // Tampilkan ke hero section
+  const heroTotal = document.getElementById('total-siswa-aktif');
+  if(heroTotal){
+    heroTotal.textContent = total;
+  }
+
+  // Update statistik utama otomatis
+  const counterTotal = document.querySelector('.counter[data-target]');
+  if(counterTotal){
+    counterTotal.dataset.target = total;
+    counterTotal.textContent = total;
+  }
+}
+
+// Jalankan otomatis
+updateTotalSiswaAktif();
+
+
+
+const SUPABASE_URL = "https://etnrxxaijfrivbjlufju.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnJ4eGFpamZyaXZiamx1Zmp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NDU4OTUsImV4cCI6MjA5NDQyMTg5NX0.Hf9Ro831c4nl74UBQ1s8uJOdSBQYOUWesf6coYGX_6Q";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+// ===== INIT =====
+renderTeachers();
+loadNews();
+lucide.createIcons();
+initScrollAnim();
