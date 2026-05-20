@@ -192,7 +192,7 @@ async function tambahBerita(){
 
   input.accept = 'image/png,image/jpeg';
 
-  input.click();
+  
 
   input.onchange = async () => {
 
@@ -275,6 +275,7 @@ async function tambahBerita(){
     }
 
   };
+  input.click();
 
 }
 
