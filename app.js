@@ -185,32 +185,182 @@ async function tambahBerita(){
   const description = prompt("Deskripsi berita:");
   if(!description) return;
 
-  const image_url = prompt("URL gambar berita:");
-  if(!image_url) return;
+  // ===== INPUT FILE =====
+  const input = document.createElement('input');
 
-  const today = new Date().toLocaleDateString('id-ID');
+  input.type = 'file';
 
-  const { data, error } = await supabaseClient
-    .from('berita')
-    .insert([
-      {
-        title,
-        category,
-        description,
-        image_url,
-        date: today
+  input.accept = 'image/png,image/jpeg';
+
+  input.click();
+
+  input.onchange = async () => {
+
+    const file = input.files[0];
+
+    if(!file) return;
+
+    try{
+
+      // loading sederhana
+      alert("Sedang memproses gambar...");
+
+      // ===== CONVERT + COMPRESS =====
+      const compressedFile = await compressImage(file);
+
+      // nama file unik
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.random().toString(36).substring(2) +
+        ".webp";
+
+      // ===== UPLOAD KE STORAGE =====
+      const { error: uploadError } = await supabaseClient
+        .storage
+        .from('berita')
+        .upload(fileName, compressedFile, {
+          contentType: 'image/webp'
+        });
+
+      if(uploadError){
+        console.error(uploadError);
+        alert(uploadError.message);
+        return;
       }
-    ]);
 
-  if(error){
-    console.error(error);
-    alert(error.message);
-    return;
-  }
-  alert("Berita berhasil ditambahkan");
-  await loadNews();
-  setAdminTab('berita');
+      // ===== AMBIL URL PUBLIC =====
+      const {
+        data: publicData
+      } = supabaseClient
+        .storage
+        .from('berita')
+        .getPublicUrl(fileName);
+
+      const image_url = publicData.publicUrl;
+
+      const today = new Date().toLocaleDateString('id-ID');
+
+      // ===== INSERT DATABASE =====
+      const { error } = await supabaseClient
+        .from('berita')
+        .insert([
+          {
+            title,
+            category,
+            description,
+            image_url,
+            date: today
+          }
+        ]);
+
+      if(error){
+        console.error(error);
+        alert(error.message);
+        return;
+      }
+
+      alert("Berita berhasil ditambahkan");
+
+      await loadNews();
+
+      setAdminTab('berita');
+
+    }catch(err){
+
+      console.error(err);
+
+      alert("Gagal upload gambar");
+
+    }
+
+  };
+
 }
+
+
+// ===== AUTO COMPRESS IMAGE =====
+async function compressImage(file){
+
+  return new Promise((resolve, reject)=>{
+
+    const img = new Image();
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = e => {
+
+      img.src = e.target.result;
+
+    };
+
+    img.onload = async ()=>{
+
+      // ===== RESIZE =====
+      let width = img.width;
+      let height = img.height;
+
+      const maxWidth = 1200;
+
+      if(width > maxWidth){
+
+        height *= maxWidth / width;
+
+        width = maxWidth;
+
+      }
+
+      const canvas = document.createElement('canvas');
+
+      canvas.width = width;
+
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // ===== COMPRESS LOOP =====
+      let quality = 0.9;
+
+      const targetSize = 300 * 1024;
+
+      async function generateBlob(){
+
+        return new Promise(res=>{
+
+          canvas.toBlob(
+            blob => res(blob),
+            'image/webp',
+            quality
+          );
+
+        });
+
+      }
+
+      let blob = await generateBlob();
+
+      while(blob.size > targetSize && quality > 0.1){
+
+        quality -= 0.05;
+
+        blob = await generateBlob();
+
+      }
+
+      resolve(blob);
+
+    };
+
+    img.onerror = reject;
+
+  });
+
+}
+
    
 // ===== ELEMENT SDK =====
 const defaultConfig={
