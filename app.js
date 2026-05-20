@@ -1,3 +1,12 @@
+const SUPABASE_URL = "https://etnrxxaijfrivbjlufju.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnJ4eGFpamZyaXZiamx1Zmp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NDU4OTUsImV4cCI6MjA5NDQyMTg5NX0.Hf9Ro831c4nl74UBQ1s8uJOdSBQYOUWesf6coYGX_6Q";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+
 // ===== DATA =====
 const teachers = [
   {name:'Drs. Hadi Susanto, M.Pd',role:'Kepala Sekolah',color:'from-gold to-gold-light',icon:'crown'},
@@ -463,16 +472,6 @@ function updateTotalSiswaAktif() {
 
 // Jalankan otomatis
 updateTotalSiswaAktif();
-
-
-
-const SUPABASE_URL = "https://etnrxxaijfrivbjlufju.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnJ4eGFpamZyaXZiamx1Zmp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NDU4OTUsImV4cCI6MjA5NDQyMTg5NX0.Hf9Ro831c4nl74UBQ1s8uJOdSBQYOUWesf6coYGX_6Q";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
 
 // ===== INIT =====
 renderTeachers();
