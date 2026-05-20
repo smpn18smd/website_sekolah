@@ -473,8 +473,11 @@ function updateTotalSiswaAktif() {
 // Jalankan otomatis
 updateTotalSiswaAktif();
 
-// ===== INIT =====
-renderTeachers();
-loadNews();
-lucide.createIcons();
-initScrollAnim();
+// ===== INIT APP =====
+async function initApp(){
+  renderTeachers();
+  await loadNews();
+  lucide.createIcons();
+  initScrollAnim();
+}
+initApp();
