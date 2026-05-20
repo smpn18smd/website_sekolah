@@ -176,15 +176,6 @@ function setAdminTab(tab){
 
 async function tambahBerita(){
 
-  const title = prompt("Judul berita:");
-  if(!title) return;
-
-  const category = prompt("Kategori berita:");
-  if(!category) return;
-
-  const description = prompt("Deskripsi berita:");
-  if(!description) return;
-
   // ===== INPUT FILE =====
   const input = document.createElement('input');
 
@@ -192,30 +183,38 @@ async function tambahBerita(){
 
   input.accept = 'image/png,image/jpeg';
 
-  
-
+  // onchange
   input.onchange = async () => {
 
     const file = input.files[0];
 
     if(!file) return;
 
+    // ===== PROMPT SETELAH FILE DIPILIH =====
+    const title = prompt("Judul berita:");
+    if(!title) return;
+
+    const category = prompt("Kategori berita:");
+    if(!category) return;
+
+    const description = prompt("Deskripsi berita:");
+    if(!description) return;
+
     try{
 
-      // loading sederhana
       alert("Sedang memproses gambar...");
 
-      // ===== CONVERT + COMPRESS =====
+      // ===== COMPRESS =====
       const compressedFile = await compressImage(file);
 
-      // nama file unik
+      // ===== FILE NAME =====
       const fileName =
         Date.now() +
         "-" +
         Math.random().toString(36).substring(2) +
         ".webp";
 
-      // ===== UPLOAD KE STORAGE =====
+      // ===== UPLOAD =====
       const { error: uploadError } = await supabaseClient
         .storage
         .from('berita')
@@ -229,7 +228,7 @@ async function tambahBerita(){
         return;
       }
 
-      // ===== AMBIL URL PUBLIC =====
+      // ===== PUBLIC URL =====
       const {
         data: publicData
       } = supabaseClient
@@ -275,7 +274,11 @@ async function tambahBerita(){
     }
 
   };
+
+  // HARUS langsung dari klik user
   input.click();
+}
+
 
 }
 
