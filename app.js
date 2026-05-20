@@ -277,10 +277,6 @@ async function tambahBerita(){
 
   // HARUS langsung dari klik user
   input.click();
-}
-
-
-}
 
 
 // ===== AUTO COMPRESS IMAGE =====
