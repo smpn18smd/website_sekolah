@@ -150,6 +150,11 @@ function setAdminTab(tab){
     </div></div>`;
   } else if(tab==='berita'){
     c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Daftar Berita</h3>
+    
+    <p class="text-xs text-white/40 mt-1">
+    Upload PNG JPG JPEG WEBP • otomatis convert WEBP • max 350KB • max lebar 1200px
+    </p>
+    
     <button
       onclick="tambahBerita()"
       class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"
