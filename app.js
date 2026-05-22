@@ -553,6 +553,90 @@ async function submitBerita(){
 
 }
 
+
+// ===== EDIT BERITA =====
+async function editBerita(id){
+
+  const berita = news.find(n => n.id === id);
+
+  if(!berita) return;
+
+  const title = prompt("Edit Judul", berita.title);
+  if(title === null) return;
+
+  const category = prompt("Edit Kategori", berita.category);
+  if(category === null) return;
+
+  const description = prompt("Edit Deskripsi", berita.description);
+  if(description === null) return;
+
+  const { error } = await supabaseClient
+    .from('berita')
+    .update({
+      title,
+      category,
+      description
+    })
+    .eq('id', id);
+
+  if(error){
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+
+  alert("Berita berhasil diupdate");
+
+  await loadNews();
+
+  setAdminTab('berita');
+}
+
+
+// ===== HAPUS BERITA =====
+async function hapusBerita(id, imageUrl){
+
+  const yakin = confirm("Yakin ingin menghapus berita ini?");
+
+  if(!yakin) return;
+
+  // ===== HAPUS FILE STORAGE =====
+  try{
+
+    const fileName = imageUrl.split('/').pop();
+
+    if(fileName){
+
+      await supabaseClient.storage
+        .from('berita')
+        .remove([fileName]);
+
+    }
+
+  }catch(err){
+    console.error(err);
+  }
+
+  // ===== HAPUS DATABASE =====
+  const { error } = await supabaseClient
+    .from('berita')
+    .delete()
+    .eq('id', id);
+
+  if(error){
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+
+  alert("Berita berhasil dihapus");
+
+  await loadNews();
+
+  setAdminTab('berita');
+}
+
+
 // ===== ELEMENT SDK =====
 const defaultConfig={
   hero_title:'Mewujudkan Generasi Cerdas, Berkarakter, dan Berprestasi',
