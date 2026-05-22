@@ -388,6 +388,80 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+async function compressImage(file) {
+
+  return new Promise((resolve) => {
+
+    const img = new Image();
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
+
+    img.onload = async () => {
+
+      // ===== MAX WIDTH =====
+      const MAX_WIDTH = 1200;
+
+      let width = img.width;
+      let height = img.height;
+
+      if (width > MAX_WIDTH) {
+        height = height * (MAX_WIDTH / width);
+        width = MAX_WIDTH;
+      }
+
+      // ===== CANVAS =====
+      const canvas = document.createElement("canvas");
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // ===== COMPRESS LOOP =====
+      let quality = 0.9;
+
+      const targetSize = 350 * 1024;
+
+      async function generateBlob(q) {
+
+        return new Promise((res) => {
+
+          canvas.toBlob(
+            (blob) => res(blob),
+            "image/webp",
+            q
+          );
+
+        });
+
+      }
+
+      let blob = await generateBlob(quality);
+
+      while (blob.size > targetSize && quality > 0.1) {
+
+        quality -= 0.05;
+
+        blob = await generateBlob(quality);
+
+      }
+
+      resolve(blob);
+
+    };
+
+  });
+
+}
+
 // ===== INIT =====
 renderTeachers();
 loadNews();
