@@ -431,6 +431,118 @@ function toggleNewsModal(show){
   modal.classList.toggle('hidden', !show);
 }
 
+async function submitBerita(){
+
+  const title =
+    document.getElementById('news-title').value;
+
+  const category =
+    document.getElementById('news-category').value;
+
+  const description =
+    document.getElementById('news-description').value;
+
+  const file =
+    document.getElementById('news-image').files[0];
+
+  if(!title || !category || !description || !file){
+
+    alert("Lengkapi semua data");
+
+    return;
+
+  }
+
+  // VALIDASI
+  const allowed = [
+    "image/png",
+    "image/jpeg",
+    "image/webp"
+  ];
+
+  if(!allowed.includes(file.type)){
+
+    alert("Format gambar tidak valid");
+
+    return;
+
+  }
+
+  alert("Memproses gambar...");
+
+  // COMPRESS
+  const compressedBlob =
+    await compressImage(file);
+
+  // FILE NAME
+  const fileName =
+    Date.now() +
+    "-" +
+    Math.random().toString(36).substring(2) +
+    ".webp";
+
+  // UPLOAD
+  const { error: uploadError } =
+    await supabaseClient.storage
+      .from("berita")
+      .upload(fileName, compressedBlob, {
+        contentType: "image/webp"
+      });
+
+  if(uploadError){
+
+    console.error(uploadError);
+
+    alert(uploadError.message);
+
+    return;
+
+  }
+
+  // PUBLIC URL
+  const { data: publicData } =
+    supabaseClient.storage
+      .from("berita")
+      .getPublicUrl(fileName);
+
+  const image_url =
+    publicData.publicUrl;
+
+  // DATE
+  const today =
+    new Date().toLocaleDateString('id-ID');
+
+  // INSERT DATABASE
+  const { error } =
+    await supabaseClient
+      .from('berita')
+      .insert([
+        {
+          title,
+          category,
+          description,
+          image_url,
+          date: today
+        }
+      ]);
+
+  if(error){
+
+    console.error(error);
+
+    alert(error.message);
+
+    return;
+
+  }
+
+  alert("Berita berhasil ditambahkan");
+
+  await loadNews();
+
+  setAdminTab('berita');
+
+}
 
 // ===== ELEMENT SDK =====
 const defaultConfig={
