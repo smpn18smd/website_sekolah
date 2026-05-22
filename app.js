@@ -424,7 +424,14 @@ async function tambahBerita() {
 
   input.click();
 }
-   
+
+function toggleNewsModal(show){
+  const modal = document.getElementById('news-modal');
+  if(!modal) return;
+  modal.classList.toggle('hidden', !show);
+}
+
+
 // ===== ELEMENT SDK =====
 const defaultConfig={
   hero_title:'Mewujudkan Generasi Cerdas, Berkarakter, dan Berprestasi',
