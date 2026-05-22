@@ -253,32 +253,41 @@ else if(tab==='berita'){
     ${news.map(n=>`
 
       <div class="glass rounded-xl p-4 flex items-center justify-between gap-4">
-
-        <div class="flex items-center gap-4">
-
-          <img
-            src="${n.image_url}"
-            class="w-20 h-20 rounded-xl object-cover border border-white/10"
-          >
-
-          <div>
-
-            <div class="font-semibold text-sm">
-              ${n.title}
-            </div>
-
-            <div class="text-xs text-white/40 mt-1">
-              ${n.date} • ${n.category}
-            </div>
-
-          </div>
-
-        </div>
-
+      <div class="flex items-center gap-4">
+      <img
+      src="${n.image_url}"
+      class="w-20 h-20 rounded-xl object-cover border border-white/10"
+    >
+    <div>
+      <div class="font-semibold text-sm">
+        ${n.title}
       </div>
+      <div class="text-xs text-white/40 mt-1">
+        ${n.date} • ${n.category}
+      </div>
+    </div>
+  </div>
+  <!-- ACTION BUTTON -->
+  <div class="flex gap-2">
+    <button
+      onclick="editBerita(${n.id})"
+      class="px-3 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs font-semibold flex items-center gap-1 transition"
+    >
+      <i data-lucide="pencil" style="width:14px;height:14px"></i>
+      Edit
+    </button>
+    <button
+      onclick="hapusBerita(${n.id}, '${n.image_url}')"
+      class="px-3 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-semibold flex items-center gap-1 transition"
+    >
+      <i data-lucide="trash-2" style="width:14px;height:14px"></i>
+      Hapus
+    </button>
+  </div>
+</div>
 
+      
     `).join('')}
-
   </div>
   `;
 
