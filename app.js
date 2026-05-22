@@ -148,23 +148,167 @@ function setAdminTab(tab){
       <div class="flex items-center gap-3 text-sm"><div class="w-2 h-2 rounded-full bg-blue-400"></div><span class="text-white/60">Data guru diperbarui</span><span class="text-xs text-white/30 ml-auto">5 jam lalu</span></div>
       <div class="flex items-center gap-3 text-sm"><div class="w-2 h-2 rounded-full bg-gold"></div><span class="text-white/60">Statistik semester diperbarui</span><span class="text-xs text-white/30 ml-auto">1 hari lalu</span></div>
     </div></div>`;
-  } else if(tab==='berita'){
-    c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Daftar Berita</h3>
+  } 
     
-    <p class="text-xs text-white/40 mt-1">
-    Upload PNG JPG JPEG WEBP • otomatis convert WEBP • max 350KB • max lebar 1200px
-    </p>
+  
+else if(tab==='berita'){
+
+  c.innerHTML = `
+  
+  <div class="flex items-center justify-between mb-6">
     
+    <div>
+      <h3 class="font-bold text-lg">
+        Daftar Berita
+      </h3>
+
+      <p class="text-xs text-white/40 mt-1">
+        Upload PNG JPG JPEG WEBP • otomatis convert WEBP • max 350KB • max lebar 1200px
+      </p>
+    </div>
+
     <button
-      onclick="tambahBerita()"
-      class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"
+      onclick="toggleNewsModal(true)"
+      class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-2"
     >
       <i data-lucide="plus" style="width:14px;height:14px"></i>
       Tambah
     </button>
+
+  </div>
+
+  <!-- FORM -->
+  <div
+    id="news-modal"
+    class="hidden mb-6 glass rounded-2xl p-5"
+  >
+
+    <div class="grid gap-4">
+
+      <input
+        id="news-title"
+        type="text"
+        placeholder="Judul berita"
+        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm outline-none"
+      >
+
+      <input
+        id="news-category"
+        type="text"
+        placeholder="Kategori berita"
+        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm outline-none"
+      >
+
+      <textarea
+        id="news-description"
+        placeholder="Deskripsi berita"
+        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm outline-none min-h-[120px]"
+      ></textarea>
+
+      <div>
+
+        <label class="block text-sm mb-2 text-white/70">
+          Upload Gambar
+        </label>
+
+        <input
+          id="news-image"
+          type="file"
+          accept=".png,.jpg,.jpeg,.webp"
+          class="w-full text-sm"
+        >
+
+      </div>
+
+      <img
+        id="preview-image"
+        class="hidden w-full max-h-[250px] object-cover rounded-xl border border-white/10"
+      >
+
+      <div class="flex gap-3">
+
+        <button
+          onclick="submitBerita()"
+          class="btn-primary px-5 py-3 rounded-xl text-navy font-bold text-sm"
+        >
+          Simpan Berita
+        </button>
+
+        <button
+          onclick="toggleNewsModal(false)"
+          class="px-5 py-3 rounded-xl bg-white/10 text-sm"
+        >
+          Batal
+        </button>
+
+      </div>
+
     </div>
-    <div class="space-y-3">${news.map(n=>`<div class="glass rounded-xl p-4 flex items-center justify-between"><div><div class="font-semibold text-sm">${n.title}</div><div class="text-xs text-white/40 mt-1">${n.date} • ${n.category}</div></div><div class="flex gap-2"><button class="p-2 rounded-lg bg-sky/10 text-sky hover:bg-sky/20 transition-colors"><i data-lucide="edit" style="width:14px;height:14px"></i></button><button class="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button></div></div>`).join('')}</div>`;
-  } else if(tab==='guru'){
+
+  </div>
+
+  <!-- LIST BERITA -->
+  <div class="space-y-3">
+
+    ${news.map(n=>`
+
+      <div class="glass rounded-xl p-4 flex items-center justify-between gap-4">
+
+        <div class="flex items-center gap-4">
+
+          <img
+            src="${n.image_url}"
+            class="w-20 h-20 rounded-xl object-cover border border-white/10"
+          >
+
+          <div>
+
+            <div class="font-semibold text-sm">
+              ${n.title}
+            </div>
+
+            <div class="text-xs text-white/40 mt-1">
+              ${n.date} • ${n.category}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join('')}
+
+  </div>
+  `;
+
+  lucide.createIcons();
+
+  // PREVIEW IMAGE
+  const input = document.getElementById('news-image');
+
+  if(input){
+
+    input.addEventListener('change', function(){
+
+      const file = this.files[0];
+
+      if(!file) return;
+
+      const preview = document.getElementById('preview-image');
+
+      preview.src = URL.createObjectURL(file);
+
+      preview.classList.remove('hidden');
+
+    });
+
+  }
+
+}
+    
+    
+    else if(tab==='guru'){
     c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Data Guru</h3><button onclick="tambahBerita()" class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"><i data-lucide="plus" style="width:14px;height:14px"></i>Tambah</button></div>
     <div class="grid sm:grid-cols-2 gap-3">${teachers.map(t=>`<div class="glass rounded-xl p-4 flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center flex-shrink-0"><i data-lucide="${t.icon}" style="width:18px;height:18px;color:white"></i></div><div><div class="font-semibold text-sm">${t.name}</div><div class="text-xs text-white/40">${t.role}</div></div></div>`).join('')}</div>`;
   } else if(tab==='statistik'){
