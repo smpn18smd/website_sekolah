@@ -174,42 +174,106 @@ function setAdminTab(tab){
   lucide.createIcons();
 }
 
-async function tambahBerita(){
+async function tambahBerita() {
 
+  // ===== FORM INPUT =====
   const title = prompt("Judul berita:");
-  if(!title) return;
+  if (!title) return;
 
   const category = prompt("Kategori berita:");
-  if(!category) return;
+  if (!category) return;
 
   const description = prompt("Deskripsi berita:");
-  if(!description) return;
+  if (!description) return;
 
-  const image_url = prompt("URL gambar berita:");
-  if(!image_url) return;
+  // ===== FILE PICKER =====
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".png,.jpg,.jpeg,.webp";
 
-  const today = new Date().toLocaleDateString('id-ID');
+  input.onchange = async () => {
 
-  const { data, error } = await supabaseClient
-    .from('berita')
-    .insert([
-      {
-        title,
-        category,
-        description,
-        image_url,
-        date: today
-      }
-    ]);
+    const file = input.files[0];
 
-  if(error){
-    console.error(error);
-    alert(error.message);
-    return;
-  }
-  alert("Berita berhasil ditambahkan");
-  await loadNews();
-  setAdminTab('berita');
+    if (!file) return;
+
+    // ===== VALIDASI FILE =====
+    const allowed = [
+      "image/png",
+      "image/jpeg",
+      "image/webp"
+    ];
+
+    if (!allowed.includes(file.type)) {
+      alert("Format harus PNG JPG JPEG WEBP");
+      return;
+    }
+
+    // ===== LOADING =====
+    alert("Sedang memproses gambar...");
+
+    // ===== COMPRESS & CONVERT WEBP =====
+    const compressedBlob = await compressImage(file);
+
+    // ===== NAMA FILE =====
+    const fileName =
+      Date.now() + "-" +
+      Math.random().toString(36).substring(2) +
+      ".webp";
+
+    // ===== UPLOAD STORAGE =====
+    const { error: uploadError } =
+      await supabaseClient.storage
+        .from("berita")
+        .upload(fileName, compressedBlob, {
+          contentType: "image/webp",
+          upsert: false
+        });
+
+    if (uploadError) {
+      console.error(uploadError);
+      alert(uploadError.message);
+      return;
+    }
+
+    // ===== AMBIL URL PUBLIC =====
+    const { data: publicData } =
+      supabaseClient.storage
+        .from("berita")
+        .getPublicUrl(fileName);
+
+    const image_url = publicData.publicUrl;
+
+    // ===== TANGGAL =====
+    const today = new Date().toLocaleDateString("id-ID");
+
+    // ===== INSERT DATABASE =====
+    const { error } = await supabaseClient
+      .from("berita")
+      .insert([
+        {
+          title,
+          category,
+          description,
+          image_url,
+          date: today
+        }
+      ]);
+
+    if (error) {
+      console.error(error);
+      alert(error.message);
+      return;
+    }
+
+    alert("Berita berhasil ditambahkan");
+
+    await loadNews();
+
+    setAdminTab("berita");
+  };
+
+  input.click();
 }
    
 // ===== ELEMENT SDK =====
