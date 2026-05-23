@@ -35,33 +35,95 @@ function renderTeachers(){
   </div>`).join('');
 }
 
+
 function renderNews(){
-  const g = document.getElementById('news-grid');
-  g.innerHTML = news.map((n,i)=>`
-  <div class="glass rounded-2xl overflow-hidden card-hover">
-    <img
-      src="${n.image_url}"
-      class="w-full h-40 object-cover"
-    >
-    <div class="p-5">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-[10px] font-semibold px-2 py-1 rounded-full bg-gold/10 text-gold-light">
-          ${n.category}
-        </span>
-        <span class="text-[10px] text-white/30">
-          ${n.date}
-        </span>
+
+  // ===== 3 BERITA TERBARU =====
+  const latestContainer =
+    document.getElementById('latest-news');
+
+  // ===== BERITA LAMA =====
+  const oldContainer =
+    document.getElementById('old-news-carousel');
+
+  if(!latestContainer || !oldContainer) return;
+
+  // ambil 3 terbaru
+  const latestNews = news.slice(0, 3);
+
+  // sisanya untuk carousel
+  const oldNews = news.slice(3);
+
+  // ===== TEMPLATE CARD =====
+  function createNewsCard(n){
+
+    return `
+    <div class="glass rounded-2xl overflow-hidden card-hover news-card">
+
+      <img
+        src="${n.image_url}"
+        class="w-full h-40 object-cover"
+      >
+
+      <div class="p-5">
+
+        <div class="flex items-center gap-2 mb-3">
+
+          <span class="text-[10px] font-semibold px-2 py-1 rounded-full bg-gold/10 text-gold-light">
+            ${n.category}
+          </span>
+
+          <span class="text-[10px] text-white/30">
+            ${n.date}
+          </span>
+
+        </div>
+
+        <h4 class="font-bold text-sm mb-2">
+          ${n.title}
+        </h4>
+
+        <p class="text-xs text-white/50 line-clamp-3">
+          ${n.description}
+        </p>
+
       </div>
-      <h4 class="font-bold text-sm mb-2">
-        ${n.title}
-      </h4>
-      <p class="text-xs text-white/50">
-        ${n.description}
-      </p>
+
     </div>
-  </div>
-  `).join('');
+    `;
+  }
+
+  // ===== RENDER 3 TERBARU =====
+  latestContainer.innerHTML =
+    latestNews.map(createNewsCard).join('');
+
+  // ===== RENDER CAROUSEL =====
+  oldContainer.innerHTML =
+    oldNews.map(createNewsCard).join('');
+
+  // ===== BUTTON NAVIGATION =====
+  const nextBtn =
+    document.getElementById('next-news');
+
+  const prevBtn =
+    document.getElementById('prev-news');
+
+  nextBtn.onclick = () => {
+    oldContainer.scrollBy({
+      left: 350,
+      behavior: 'smooth'
+    });
+  };
+
+  prevBtn.onclick = () => {
+    oldContainer.scrollBy({
+      left: -350,
+      behavior: 'smooth'
+    });
+  };
+
 }
+
 
 // ===== COUNTER ANIMATION =====
 function animateCounters(){
