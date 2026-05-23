@@ -512,7 +512,56 @@ tailwind.config={theme:{extend:{fontFamily:{poppins:['Poppins','sans-serif']},co
     </form><button onclick="hideLogin()" class="w-full mt-3 text-sm text-white/40 hover:text-white/60 transition-colors py-2">Kembali</button>
    </div>
   </div>
- 
+
+<!-- DETAIL BERITA MODAL -->
+<div
+  id="news-detail-modal"
+  class="fixed inset-0 z-[90] hidden items-center justify-center p-4"
+  style="background:rgba(0,0,0,.75);backdrop-filter:blur(8px)"
+>
+  <div
+    class="glass rounded-3xl w-full max-w-4xl overflow-hidden relative max-h-[95vh] overflow-y-auto"
+  >
+    <!-- CLOSE -->
+    <button
+      onclick="closeNewsDetail()"
+      class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-red-500 transition flex items-center justify-center"
+    >
+      ✕
+    </button>
+    <!-- IMAGE -->
+    <img
+      id="detail-image"
+      class="w-full h-[250px] md:h-[420px] object-cover"
+    >
+    <!-- CONTENT -->
+    <div class="p-6 md:p-8">
+      <div class="flex items-center gap-3 mb-4 flex-wrap">
+        <span
+          id="detail-category"
+          class="text-xs font-semibold px-3 py-1 rounded-full bg-gold/10 text-gold-light"
+        >
+        </span>
+        <span
+          id="detail-date"
+          class="text-xs text-white/40"
+        >
+        </span>
+      </div>
+      <h2
+        id="detail-title"
+        class="text-2xl md:text-4xl font-black mb-5 leading-tight"
+      >
+      </h2>
+      <div
+        id="detail-description"
+        class="text-white/70 leading-relaxed whitespace-pre-line"
+      >
+      </div>
+    </div>
+  </div>
+</div>
+  
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
 
