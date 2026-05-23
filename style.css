@@ -98,3 +98,20 @@ transition:.3s;
 background:#d4a853;
 color:#0a1628;
 }
+
+/* ===== DETAIL BERITA ===== */
+
+#news-detail-modal{
+animation:fadeIn .25s ease;
+}
+
+#detail-description{
+font-size:15px;
+line-height:1.9;
+}
+
+#detail-description img{
+max-width:100%;
+border-radius:16px;
+margin-top:16px;
+}
