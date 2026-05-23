@@ -865,40 +865,57 @@ async function compressImage(file) {
 
       // ===== COMPRESS LOOP =====
       let quality = 0.9;
-
       const targetSize = 350 * 1024;
-
       async function generateBlob(q) {
-
         return new Promise((res) => {
-
           canvas.toBlob(
             (blob) => res(blob),
             "image/webp",
             q
           );
-
         });
-
       }
-
       let blob = await generateBlob(quality);
-
       while (blob.size > targetSize && quality > 0.1) {
-
         quality -= 0.05;
-
         blob = await generateBlob(quality);
-
       }
-
       resolve(blob);
-
     };
-
   });
-
 }
+
+// ===== DETAIL BERITA =====
+function openNewsDetail(id){
+  const berita = news.find(n => n.id === id);
+  if(!berita) return;
+  document.getElementById('detail-image').src =
+    berita.image_url;
+  document.getElementById('detail-category').textContent =
+    berita.category;
+  document.getElementById('detail-date').textContent =
+    berita.date;
+  document.getElementById('detail-title').textContent =
+    berita.title;
+  document.getElementById('detail-description').textContent =
+    berita.description;
+  const modal =
+    document.getElementById('news-detail-modal');
+  modal.style.display = 'flex';
+}
+// ===== CLOSE DETAIL =====
+function closeNewsDetail(){
+  document.getElementById('news-detail-modal')
+    .style.display = 'none';
+}
+// ===== CLOSE SAAT KLIK BACKGROUND =====
+document.addEventListener('click', function(e){
+  const modal =
+    document.getElementById('news-detail-modal');
+  if(e.target === modal){
+    closeNewsDetail();
+  }
+});
 
 // ===== INIT =====
 renderTeachers();
