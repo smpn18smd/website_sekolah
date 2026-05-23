@@ -54,44 +54,59 @@ function renderNews(){
   // sisanya untuk carousel
   const oldNews = news.slice(3);
 
+  
   // ===== TEMPLATE CARD =====
   function createNewsCard(n){
 
-    return `
-    <div class="glass rounded-2xl overflow-hidden card-hover news-card">
+  return `
+  <div
+    onclick="openNewsDetail(${n.id})"
+    class="glass rounded-2xl overflow-hidden card-hover news-card cursor-pointer"
+  >
 
-      <img
-        src="${n.image_url}"
-        class="w-full h-40 object-cover"
-      >
+    <img
+      src="${n.image_url}"
+      class="w-full h-40 object-cover"
+    >
 
-      <div class="p-5">
+    <div class="p-5">
 
-        <div class="flex items-center gap-2 mb-3">
+      <div class="flex items-center gap-2 mb-3">
 
-          <span class="text-[10px] font-semibold px-2 py-1 rounded-full bg-gold/10 text-gold-light">
-            ${n.category}
-          </span>
+        <span class="text-[10px] font-semibold px-2 py-1 rounded-full bg-gold/10 text-gold-light">
+          ${n.category}
+        </span>
 
-          <span class="text-[10px] text-white/30">
-            ${n.date}
-          </span>
+        <span class="text-[10px] text-white/30">
+          ${n.date}
+        </span>
 
-        </div>
+      </div>
 
-        <h4 class="font-bold text-sm mb-2">
-          ${n.title}
-        </h4>
+      <h4 class="font-bold text-sm mb-2 hover:text-gold-light transition">
+        ${n.title}
+      </h4>
 
-        <p class="text-xs text-white/50 line-clamp-3">
-          ${n.description}
-        </p>
+      <p class="text-xs text-white/50 line-clamp-3">
+        ${n.description}
+      </p>
+
+      <div class="mt-4">
+
+        <button
+          class="text-gold-light text-xs font-semibold"
+        >
+          Baca Selengkapnya →
+        </button>
 
       </div>
 
     </div>
-    `;
+
+  </div>
+  `;
   }
+  
 
   // ===== RENDER 3 TERBARU =====
   latestContainer.innerHTML =
