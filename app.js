@@ -209,7 +209,7 @@ async function loginAdmin(){
 function hideAdmin(){document.getElementById('admin-panel').style.display='none'}
 
 function setAdminTab(tab){
-  document.getElementById('admin-title').textContent={dashboard:'Dashboard',berita:'Kelola Berita',guru:'Kelola Guru',statistik:'Statistik'}[tab]||'Dashboard';
+  document.getElementById('admin-title').textContent={dashboard:'Dashboard',berita:'Kelola Berita',hero:'Hero Beranda',guru:'Kelola Guru',statistik:'Statistik'}[tab]||'Dashboard';
   document.querySelectorAll('.admin-nav-btn').forEach(b=>{b.classList.toggle('bg-white/10',b.dataset.tab===tab);b.classList.toggle('text-gold-light',b.dataset.tab===tab)});
   const c=document.getElementById('admin-content');
   if(tab==='dashboard'){
