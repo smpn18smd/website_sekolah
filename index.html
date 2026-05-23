@@ -339,8 +339,38 @@ tailwind.config={theme:{extend:{fontFamily:{poppins:['Poppins','sans-serif']},co
       <h2 class="text-3xl lg:text-4xl font-black mt-2 mb-3">Berita &amp; <span class="gradient-text">Kegiatan</span></h2>
       <div class="shimmer-line w-20 mx-auto"></div>
      </div>
-     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="news-grid">
-     </div>
+
+<div id="latest-news" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+</div>
+
+<!-- CAROUSEL BERITA LAMA -->
+<div class="relative">
+
+  <!-- TOMBOL KIRI -->
+  <button
+    id="prev-news"
+    class="news-nav-btn left-0"
+  >
+    ❮
+  </button>
+
+  <!-- LIST BERITA LAMA -->
+  <div
+    id="old-news-carousel"
+    class="flex gap-6 overflow-x-auto scroll-smooth pb-4"
+  >
+  </div>
+
+  <!-- TOMBOL KANAN -->
+  <button
+    id="next-news"
+    class="news-nav-btn right-0"
+  >
+    ❯
+  </button>
+
+</div>
+     
     </div>
    </section><!-- FOOTER -->
    <footer class="py-14 border-t border-white/10 relative overflow-hidden">
