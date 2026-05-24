@@ -1012,6 +1012,22 @@ async function uploadHeroImage(){
   alert("Foto hero berhasil diupdate");
 }
 
+// ===== LOAD HERO IMAGE =====
+async function loadHeroImage(){
+  const fileName = 'guru-hero.webp';
+  const { data } =
+    supabaseClient.storage
+      .from('hero')
+      .getPublicUrl(fileName);
+  const img =
+    document.getElementById('hero-guru-image');
+  if(img){
+    img.src =
+      data.publicUrl + '?t=' + Date.now();
+  }
+}
+loadHeroImage();
+
 
 // ===== INIT =====
 renderTeachers();
