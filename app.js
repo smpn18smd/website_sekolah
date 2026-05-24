@@ -392,7 +392,47 @@ else if(tab==='berita'){
   }
 
 }
-    
+
+
+  else if(tab==='hero'){
+  c.innerHTML = `
+  <div class="glass rounded-2xl p-6 max-w-2xl">
+    <h3 class="font-bold text-lg mb-2">
+      Update Foto Hero Guru
+    </h3>
+    <p class="text-xs text-white/40 mb-5">
+      Upload PNG JPG WEBP transparan untuk tampilan beranda
+    </p>
+    <input
+      id="hero-image-input"
+      type="file"
+      accept=".png,.jpg,.jpeg,.webp"
+      class="mb-4 w-full"
+    >
+    <img
+      id="hero-preview"
+      class="w-full max-h-[400px] object-contain rounded-2xl border border-white/10 mb-5"
+    >
+    <button
+      onclick="uploadHeroImage()"
+      class="btn-primary px-5 py-3 rounded-xl text-navy font-bold text-sm"
+    >
+      Upload Foto Hero
+    </button>
+  </div>
+  `;
+  const input =
+    document.getElementById('hero-image-input');
+  const preview =
+    document.getElementById('hero-preview');
+  input.addEventListener('change', function(){
+    const file = this.files[0];
+    if(!file) return;
+    preview.src = URL.createObjectURL(file);
+  });
+}
+
+  
     
     else if(tab==='guru'){
     c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Data Guru</h3><button onclick="tambahBerita()" class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"><i data-lucide="plus" style="width:14px;height:14px"></i>Tambah</button></div>
