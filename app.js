@@ -957,6 +957,62 @@ document.addEventListener('click', function(e){
   }
 });
 
+// ===== HERO IMAGE =====
+async function uploadHeroImage(){
+  const file =
+    document.getElementById('hero-image-input')
+    .files[0];
+  if(!file){
+    alert("Pilih gambar terlebih dahulu");
+    return;
+  }
+  alert("Mengupload gambar...");
+
+  // compress
+  const compressedBlob =
+    await compressImage(file);
+
+  // nama file tetap
+  const fileName = 'guru-hero.webp';
+
+  // hapus lama
+  await supabaseClient.storage
+    .from('hero')
+    .remove([fileName]);
+
+  // upload baru
+  const { error } =
+    await supabaseClient.storage
+      .from('hero')
+      .upload(fileName, compressedBlob, {
+        contentType:'image/webp',
+        upsert:true
+      });
+  if(error){
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+
+  // public url
+  const { data } =
+    supabaseClient.storage
+      .from('hero')
+      .getPublicUrl(fileName);
+
+  // update tampilan hero
+  document.getElementById('hero-guru-image')
+    .src = data.publicUrl + '?t=' + Date.now();
+
+  // simpan local
+  localStorage.setItem(
+    'hero_guru',
+    data.publicUrl
+  );
+  alert("Foto hero berhasil diupdate");
+}
+
+
 // ===== INIT =====
 renderTeachers();
 loadNews();
