@@ -450,7 +450,18 @@ tailwind.config={theme:{extend:{fontFamily:{poppins:['Poppins','sans-serif']},co
        </div>
       </div>
      </div>
-     <nav class="flex-1 p-4 space-y-1"><button onclick="setAdminTab('dashboard')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="dashboard"><i data-lucide="layout-dashboard" style="width:18px;height:18px"></i>Dashboard</button> <button onclick="setAdminTab('berita')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="berita"><i data-lucide="newspaper" style="width:18px;height:18px"></i>Kelola Berita</button> <button onclick="setAdminTab('guru')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="guru"><i data-lucide="users" style="width:18px;height:18px"></i>Kelola Guru</button> <button onclick="setAdminTab('statistik')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="statistik"><i data-lucide="bar-chart-3" style="width:18px;height:18px"></i>Statistik</button>
+     <nav class="flex-1 p-4 space-y-1"><button onclick="setAdminTab('dashboard')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="dashboard"><i data-lucide="layout-dashboard" style="width:18px;height:18px"></i>Dashboard</button> <button onclick="setAdminTab('berita')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="berita"><i data-lucide="newspaper" style="width:18px;height:18px"></i>Kelola Berita</button> 
+      
+      <button
+        onclick="setAdminTab('hero')"
+        class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors"
+        data-tab="hero"
+      >
+        <i data-lucide="image" style="width:18px;height:18px"></i>
+        Hero Beranda
+      </button>
+
+      <button onclick="setAdminTab('guru')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="guru"><i data-lucide="users" style="width:18px;height:18px"></i>Kelola Guru</button> <button onclick="setAdminTab('statistik')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="statistik"><i data-lucide="bar-chart-3" style="width:18px;height:18px"></i>Statistik</button>
      </nav>
      <div class="p-4 border-t border-white/10">
       <button onclick="hideAdmin()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-400/70 hover:bg-red-500/10 transition-colors"><i data-lucide="log-out" style="width:18px;height:18px"></i>Keluar</button>
