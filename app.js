@@ -973,7 +973,7 @@ async function uploadHeroImage(){
     await compressImage(file);
 
   // nama file tetap
-  const fileName = 'guru-hero.webp';
+  const fileName = `guru-hero-${Date.now()}.webp`;
 
   // hapus lama
   await supabaseClient.storage
@@ -1014,7 +1014,7 @@ async function uploadHeroImage(){
 
 // ===== LOAD HERO IMAGE =====
 async function loadHeroImage(){
-  const fileName = 'guru-hero.webp';
+  const fileName = `guru-hero-${Date.now()}.webp`;
   const { data } =
     supabaseClient.storage
       .from('hero')
