@@ -1014,7 +1014,7 @@ if(settingError){
   alert(settingError.message);
   return;
 }
-
+}
 // hapus file lama
 if(
   oldHero?.value &&
