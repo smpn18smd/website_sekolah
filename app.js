@@ -1013,10 +1013,8 @@ if(settingError){
   console.error(settingError);
   alert(settingError.message);
   return;
-
-  await loadHeroImage();
-  alert("Foto hero berhasil diupdate");
 }
+
 
 // hapus file lama
 if(
@@ -1040,6 +1038,9 @@ if(
 
 }
 
+  await loadHeroImage();
+  alert("Foto hero berhasil diupdate");
+}
 
 // ===== LOAD HERO IMAGE =====
 async function loadHeroImage(){
