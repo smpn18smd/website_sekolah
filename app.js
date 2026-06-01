@@ -989,7 +989,7 @@ async function uploadHeroImage(){
     return;
   }
 
-
+  // SIMPAN NAMA FILE HERO TERBARU
   await supabaseClient
   .from('website_settings')
   .upsert({
