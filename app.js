@@ -1017,18 +1017,39 @@ await supabaseClient
 
 // ===== LOAD HERO IMAGE =====
 async function loadHeroImage(){
-  const fileName = `guru-hero-${Date.now()}.webp`;
-  const { data } =
+
+  const { data, error } =
+    await supabaseClient
+      .from('website_settings')
+      .select('value')
+      .eq('key','hero_image')
+      .single();
+
+  if(error || !data?.value){
+    return;
+  }
+
+  const fileName = data.value;
+
+  const { data:urlData } =
     supabaseClient.storage
       .from('hero')
       .getPublicUrl(fileName);
+
   const img =
-    document.getElementById('hero-guru-image');
+    document.getElementById(
+      'hero-guru-image'
+    );
+
   if(img){
     img.src =
-      data.publicUrl + '?t=' + Date.now();
+      urlData.publicUrl +
+      '?t=' +
+      Date.now();
   }
+
 }
+
 loadHeroImage();
 
 
