@@ -998,22 +998,9 @@ async function uploadHeroImage(){
   });
 
   
-  
-  // public url
-  const { data } =
-    supabaseClient.storage
-      .from('hero')
-      .getPublicUrl(fileName);
+  await loadHeroImage();  
 
-  // update tampilan hero
-  document.getElementById('hero-guru-image')
-    .src = data.publicUrl + '?t=' + Date.now();
 
-  // simpan local
-  localStorage.setItem(
-    'hero_guru',
-    data.publicUrl
-  );
   alert("Foto hero berhasil diupdate");
 }
 
