@@ -998,7 +998,9 @@ const fileName =
     alert(error.message);
     return;
   }
-
+  
+  alert("Foto hero berhasil diupdate");
+}
 
 // simpan nama file hero terbaru
 const { error: settingError } =
