@@ -997,21 +997,7 @@ await supabaseClient
     value: fileName
   });
   
-  // public url
-  const { data } =
-    supabaseClient.storage
-      .from('hero')
-      .getPublicUrl(fileName);
-
-  // update tampilan hero
-  document.getElementById('hero-guru-image')
-    .src = data.publicUrl + '?t=' + Date.now();
-
-  // simpan local
-  localStorage.setItem(
-    'hero_guru',
-    data.publicUrl
-  );
+  await loadHeroImage();
   alert("Foto hero berhasil diupdate");
 }
 
