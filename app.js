@@ -1002,7 +1002,24 @@ const fileName =
   }
 
 
-// SIMPAN NAMA FILE HERO TERBARU
+// simpan nama file hero terbaru
+const { error: settingError } =
+await supabaseClient
+.from('website_settings')
+.upsert({
+key:'hero_image',
+value:fileName
+});
+
+if(settingError){
+console.error(settingError);
+alert(settingError.message);
+return;
+}
+
+  
+  
+  // SIMPAN NAMA FILE HERO TERBARU
   await supabaseClient
   .from('website_settings')
   .upsert({
@@ -1013,8 +1030,10 @@ const fileName =
   
   await loadHeroImage();  
 
+
   alert("Foto hero berhasil diupdate");
 }
+
 
 
 // ===== LOAD HERO IMAGE =====
