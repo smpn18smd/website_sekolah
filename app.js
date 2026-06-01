@@ -999,9 +999,6 @@ const fileName =
     return;
   }
   
-  alert("Foto hero berhasil diupdate");
-}
-
 // simpan nama file hero terbaru
 const { error: settingError } =
   await supabaseClient
@@ -1016,7 +1013,9 @@ if(settingError){
   alert(settingError.message);
   return;
 }
-
+  
+  alert("Foto hero berhasil diupdate");
+}
 
 // ===== LOAD HERO IMAGE =====
 async function loadHeroImage(){
