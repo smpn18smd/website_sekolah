@@ -1013,7 +1013,7 @@ if(settingError){
   console.error(settingError);
   alert(settingError.message);
   return;
-}
+
   await loadHeroImage();
   alert("Foto hero berhasil diupdate");
 }
