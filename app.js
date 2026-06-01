@@ -1002,7 +1002,7 @@ const fileName =
   }
 
 
-// simpan nama file hero terbaru
+// simpan file terbaru ke database hero
 const { error: settingError } =
 await supabaseClient
 .from('website_settings')
@@ -1017,46 +1017,21 @@ alert(settingError.message);
 return;
 }
 
-
-
 // hapus file lama
 if(
   oldHero?.value &&
   oldHero.value !== fileName
 ){
-
-  const { error: deleteError } =
     await supabaseClient.storage
       .from('hero')
       .remove([
         oldHero.value
       ]);
-
-  if(deleteError){
-    console.warn(
-      'Gagal menghapus file lama:',
-      deleteError.message
-    );
   }
-
-}
-
-
   
-  // SIMPAN NAMA FILE HERO TERBARU
-  await supabaseClient
-  .from('website_settings')
-  .upsert({
-    key: 'hero_image',
-    value: fileName
-  });
-
-  
+ // refresh hero
   await loadHeroImage();  
-
-
   alert("Foto hero berhasil diupdate");
-}
 
 
 // ===== LOAD HERO IMAGE =====
