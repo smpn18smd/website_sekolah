@@ -1017,23 +1017,6 @@ alert(settingError.message);
 return;
 }
 
-  
-  
-  // SIMPAN NAMA FILE HERO TERBARU
-  await supabaseClient
-  .from('website_settings')
-  .upsert({
-    key: 'hero_image',
-    value: fileName
-  });
-
-  
-  await loadHeroImage();  
-
-
-  alert("Foto hero berhasil diupdate");
-}
-
 
 
 // hapus file lama
@@ -1059,6 +1042,21 @@ if(
 }
 
 
+  
+  // SIMPAN NAMA FILE HERO TERBARU
+  await supabaseClient
+  .from('website_settings')
+  .upsert({
+    key: 'hero_image',
+    value: fileName
+  });
+
+  
+  await loadHeroImage();  
+
+
+  alert("Foto hero berhasil diupdate");
+}
 
 
 // ===== LOAD HERO IMAGE =====
