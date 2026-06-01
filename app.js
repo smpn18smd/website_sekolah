@@ -975,11 +975,6 @@ async function uploadHeroImage(){
   // nama file tetap
   const fileName = `guru-hero-${Date.now()}.webp`;
 
-  // hapus lama
-  await supabaseClient.storage
-    .from('hero')
-    .remove([fileName]);
-
   // upload baru
   const { error } =
     await supabaseClient.storage
