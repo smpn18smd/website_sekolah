@@ -1014,28 +1014,6 @@ if(settingError){
   alert(settingError.message);
   return;
 }
-}
-// hapus file lama
-if(
-  oldHero?.value &&
-  oldHero.value !== fileName
-){
-
-  const { error: deleteError } =
-    await supabaseClient.storage
-      .from('hero')
-      .remove([
-        oldHero.value
-      ]);
-
-  if(deleteError){
-    console.warn(
-      'Gagal menghapus file lama:',
-      deleteError.message
-    );
-  }
-
-}
 
 
 // ===== LOAD HERO IMAGE =====
