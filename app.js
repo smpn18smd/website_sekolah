@@ -1015,7 +1015,6 @@ if(settingError){
   return;
 }
 
-
 // hapus file lama
 if(
   oldHero?.value &&
@@ -1038,9 +1037,6 @@ if(
 
 }
 
-  await loadHeroImage();
-  alert("Foto hero berhasil diupdate");
-}
 
 // ===== LOAD HERO IMAGE =====
 async function loadHeroImage(){
