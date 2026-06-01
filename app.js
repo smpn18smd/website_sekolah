@@ -968,12 +968,24 @@ async function uploadHeroImage(){
   }
   alert("Mengupload gambar...");
 
-  // compress
-  const compressedBlob =
-    await compressImage(file);
 
-  // nama file tetap
-  const fileName = `guru-hero-${Date.now()}.webp`;
+// compress
+const compressedBlob =
+  await compressImage(file);
+
+// ambil nama file lama
+const { data: oldHero } =
+  await supabaseClient
+    .from('website_settings')
+    .select('value')
+    .eq('key','hero_image')
+    .single();
+
+// nama file baru
+const fileName =
+  `guru-hero-${Date.now()}.webp`;
+
+  
 
   // upload baru
   const { error } =
