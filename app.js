@@ -997,24 +997,19 @@ const fileName =
     console.error(error);
     alert(error.message);
     return;
+
+    await loadHeroImage();
+  alert("Foto hero berhasil diupdate");
   }
   
 // simpan nama file hero terbaru
-const { error: settingError } =
+
   await supabaseClient
     .from('website_settings')
     .upsert({
       key:'hero_image',
       value:fileName
     });
-
-if(settingError){
-  console.error(settingError);
-  alert(settingError.message);
-  return;
-}
-  
-  alert("Foto hero berhasil diupdate");
 }
 
 // ===== LOAD HERO IMAGE =====
