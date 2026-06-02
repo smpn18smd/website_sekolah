@@ -1017,21 +1017,22 @@ alert(settingError.message);
 return;
 }
 
+
 // hapus file lama
 if(
   oldHero?.value &&
   oldHero.value !== fileName
 ){
-    await supabaseClient.storage
-      .from('hero')
-      .remove([
-        oldHero.value
-      ]);
-  }
-  
- // refresh hero
-  await loadHeroImage();  
-  alert("Foto hero berhasil diupdate");
+  await supabaseClient.storage
+    .from('hero')
+    .remove([oldHero.value]);
+}
+
+// refresh hero
+await loadHeroImage();
+
+alert("Foto hero berhasil diupdate");
+
 
 
 // ===== LOAD HERO IMAGE =====
