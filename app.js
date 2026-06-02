@@ -1023,15 +1023,39 @@ if(
   oldHero?.value &&
   oldHero.value !== fileName
 ){
-  await supabaseClient.storage
-    .from('hero')
-    .remove([oldHero.value]);
+
+  const { error: deleteError } =
+    await supabaseClient.storage
+      .from('hero')
+      .remove([
+        oldHero.value
+      ]);
+
+  if(deleteError){
+    console.warn(
+      'Gagal menghapus file lama:',
+      deleteError.message
+    );
+  }
+
 }
 
-// refresh hero
-await loadHeroImage();
+  
 
-alert("Foto hero berhasil diupdate");
+  // SIMPAN NAMA FILE HERO TERBARU
+  await supabaseClient
+  .from('website_settings')
+  .upsert({
+    key: 'hero_image',
+    value: fileName
+  });
+
+  
+  await loadHeroImage();  
+
+
+  alert("Foto hero berhasil diupdate");
+}
 
 
 
