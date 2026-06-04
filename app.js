@@ -23,7 +23,26 @@ async function loadNews(){
   news = data;
   renderNews();
 };
-   
+
+
+// ===== URUTAN JABATAN =====
+function getUrutanJabatan(jabatan){
+
+  const urutan = {
+    "Kepala Sekolah":1,
+    "Waka Kurikulum":2,
+    "Waka Kesiswaan":3,
+    "Guru":4,
+    "Staff TU":5,
+    "Perpustakaan":6,
+    "Tenaga Kependidikan":7
+  };
+
+  return urutan[jabatan] || 99;
+}
+
+
+
 // ===== RENDER =====
 function renderTeachers(){
   const g=document.getElementById('teachers-grid');
