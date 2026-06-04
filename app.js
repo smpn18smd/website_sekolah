@@ -1,16 +1,7 @@
 // ===== DATA =====
-const teachers = [
-  {name:'Drs. Hadi Susanto, M.Pd',role:'Kepala Sekolah',color:'from-gold to-gold-light',icon:'crown'},
-  {name:'Siti Rahmawati, S.Pd',role:'Wakil Kurikulum',color:'from-sky to-blue-400',icon:'book-open'},
-  {name:'Ahmad Fauzi, M.Pd',role:'Guru Matematika',color:'from-green-400 to-emerald-500',icon:'calculator'},
-  {name:'Dewi Lestari, S.Pd',role:'Guru Bahasa Indonesia',color:'from-purple-400 to-purple-600',icon:'pen-tool'},
-  {name:'Budi Prasetyo, S.Pd',role:'Guru IPA',color:'from-cyan-400 to-cyan-600',icon:'flask-conical'},
-  {name:'Nur Hidayah, S.Pd',role:'Guru Bahasa Inggris',color:'from-orange-400 to-orange-600',icon:'globe'},
-  {name:'Rina Marlina, S.Pd',role:'Guru IPS',color:'from-rose-400 to-rose-600',icon:'map'},
-  {name:'Agus Setiawan, S.Pd',role:'Guru Olahraga',color:'from-yellow-400 to-yellow-600',icon:'dumbbell'}
-];
-
+let teachers = [];
 let news = [];
+
 async function loadNews(){
   const { data, error } = await supabaseClient
     .from('berita')
