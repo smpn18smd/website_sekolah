@@ -777,6 +777,59 @@ async function submitBerita(){
 }
 
 
+async function simpanGuru(){
+  const name =
+    document.getElementById('guru-name').value;
+  const jabatan =
+    document.getElementById('guru-jabatan').value;
+  const keterangan =
+    document.getElementById('guru-keterangan').value;
+  const file =
+    document.getElementById('guru-photo').files[0];
+  if(!name || !file){
+    alert('Nama dan foto wajib diisi');
+    return;
+  }
+  const compressedBlob =
+    await compressTeacherImage(file);
+  const fileName =
+    Date.now() + '.webp';
+  const { error: uploadError } =
+    await supabaseClient.storage
+      .from('guru')
+      .upload(fileName, compressedBlob,{
+        contentType:'image/webp'
+      });
+  if(uploadError){
+    alert(uploadError.message);
+    return;
+  }
+  const { data:urlData } =
+    supabaseClient.storage
+      .from('guru')
+      .getPublicUrl(fileName);
+  const urutan =
+    getUrutanJabatan(jabatan);
+  const { error } =
+    await supabaseClient
+      .from('guru')
+      .insert([{
+        name,
+        jabatan,
+        keterangan,
+        photo_url:urlData.publicUrl,
+        urutan
+      }]);
+  if(error){
+    alert(error.message);
+    return;
+  }
+  alert('Guru berhasil ditambahkan');
+  await loadTeachers();
+  setAdminTab('guru');
+}
+
+
 // ===== EDIT BERITA =====
 async function editBerita(id){
 
