@@ -1,24 +1,6 @@
 // ===== DATA =====
 let teachers = [];
 
-
-
-
-let news = [];
-async function loadNews(){
-  const { data, error } = await supabaseClient
-    .from('berita')
-    .select('*')
-    .order('id', { ascending:false });
-  if(error){
-    console.error(error);
-    return;
-  }
-  news = data;
-  renderNews();
-};
-
-
 // ===== URUTAN JABATAN =====
 function getUrutanJabatan(jabatan){
   const urutan = {
@@ -62,6 +44,19 @@ function renderTeachers(){
   </div>`).join('');
 }
 
+let news = [];
+async function loadNews(){
+  const { data, error } = await supabaseClient
+    .from('berita')
+    .select('*')
+    .order('id', { ascending:false });
+  if(error){
+    console.error(error);
+    return;
+  }
+  news = data;
+  renderNews();
+};
 
 function renderNews(){
 
