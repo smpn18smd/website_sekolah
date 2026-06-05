@@ -888,28 +888,20 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+// fungsi kompres berita
 async function compressImage(file) {
-
   return new Promise((resolve) => {
-
     const img = new Image();
-
     const reader = new FileReader();
-
     reader.readAsDataURL(file);
-
     reader.onload = (e) => {
       img.src = e.target.result;
     };
-
     img.onload = async () => {
-
       // ===== MAX WIDTH =====
       const MAX_WIDTH = 1200;
-
       let width = img.width;
       let height = img.height;
-
       if (width > MAX_WIDTH) {
         height = height * (MAX_WIDTH / width);
         width = MAX_WIDTH;
@@ -946,6 +938,57 @@ async function compressImage(file) {
     };
   });
 }
+
+
+// ===== Fungsi COMPRESS FOTO GURU =====
+async function compressTeacherImage(file){
+  return new Promise((resolve)=>{
+    const img = new Image();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e=>{
+      img.src = e.target.result;
+    };
+    img.onload = async ()=>{
+      const canvas =
+        document.createElement("canvas");
+      canvas.width = 400;
+      canvas.height = 600;
+      const ctx =
+        canvas.getContext("2d");
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        400,
+        600
+      );
+      let quality = 0.8;
+      const target =
+        50 * 1024;
+      function makeBlob(q){
+        return new Promise(res=>{
+          canvas.toBlob(
+            b=>res(b),
+            "image/webp",
+            q
+          );
+        });
+      }
+      let blob =
+        await makeBlob(quality);
+      while(
+        blob.size > target &&
+        quality > 0.1
+      ){
+        quality -= 0.05;
+        blob = await makeBlob(quality);
+      }
+      resolve(blob);
+    };
+  });
+}
+
 
 // ===== DETAIL BERITA =====
 function openNewsDetail(id){
