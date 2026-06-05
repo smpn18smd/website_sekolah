@@ -33,16 +33,36 @@ renderTeachers();
 }
 
 
-// ===== RENDER =====
+// ===== RENDER FOTO FOTO GURU =====
 function renderTeachers(){
-  const g=document.getElementById('teachers-grid');
-  g.innerHTML=teachers.map((t,i)=>`
-  <div class="teacher-card glass rounded-2xl p-6 text-center card-hover section-anim" style="animation-delay:${i*.1}s">
-    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center shadow-lg"><i data-lucide="${t.icon}" style="width:32px;height:32px;color:white"></i></div>
-    <h4 class="font-bold text-sm mb-1">${t.name}</h4>
-    <p class="text-xs text-gold-light/70">${t.role}</p>
-  </div>`).join('');
+  const g =
+    document.getElementById(
+      'teachers-grid'
+    );
+  if(!g) return;
+  g.innerHTML =
+    teachers.map(t=>`
+<div class="teacher-slide">
+<img
+src="${t.photo_url}"
+class="teacher-photo"
+>
+<h4>${t.name}</h4>
+<div class="teacher-role">
+${t.jabatan}
+</div>
+${
+t.keterangan
+?
+`<p>${t.keterangan}</p>`
+:
+''
 }
+</div>
+`).join('');
+}
+
+
 
 let news = [];
 async function loadNews(){
