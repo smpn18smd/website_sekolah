@@ -476,10 +476,74 @@ else if(tab==='berita'){
 
   
     
-    else if(tab==='guru'){
-    c.innerHTML=`<div class="flex justify-between items-center mb-6"><h3 class="font-bold">Data Guru</h3><button onclick="tambahBerita()" class="btn-primary px-4 py-2 rounded-lg text-navy text-xs font-bold flex items-center gap-1"><i data-lucide="plus" style="width:14px;height:14px"></i>Tambah</button></div>
-    <div class="grid sm:grid-cols-2 gap-3">${teachers.map(t=>`<div class="glass rounded-xl p-4 flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center flex-shrink-0"><i data-lucide="${t.icon}" style="width:18px;height:18px;color:white"></i></div><div><div class="font-semibold text-sm">${t.name}</div><div class="text-xs text-white/40">${t.role}</div></div></div>`).join('')}</div>`;
-  } else if(tab==='statistik'){
+ else if(tab==='guru'){
+  c.innerHTML = `
+  <div class="glass rounded-2xl p-5 mb-6">
+    <h3 class="font-bold text-lg mb-4">
+      Tambah Guru
+    </h3>
+    <div class="grid gap-4">
+      <input
+        type="text"
+        id="guru-name"
+        placeholder="Nama Guru"
+        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+      >
+      <select
+        id="guru-jabatan"
+        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+      >
+        <option>Kepala Sekolah</option>
+        <option>Waka Kurikulum</option>
+        <option>Waka Kesiswaan</option>
+        <option>Guru</option>
+        <option>Staff TU</option>
+        <option>Perpustakaan</option>
+        <option>Tenaga Kependidikan</option>
+      </select>
+      <textarea
+        id="guru-keterangan"
+        placeholder="Keterangan"
+        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+      ></textarea>
+      <input
+        type="file"
+        id="guru-photo"
+        accept=".jpg,.jpeg,.png,.webp"
+        class="w-full"
+      >
+      <button
+        onclick="simpanGuru()"
+        class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
+      >
+        Simpan
+      </button>
+    </div>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    ${teachers.map(t=>`
+      <div class="glass rounded-xl p-4">
+        <img
+          src="${t.photo_url}"
+          class="w-full h-56 object-cover rounded-xl mb-3"
+        >
+        <h4 class="font-bold">
+          ${t.name}
+        </h4>
+        <div class="text-gold-light text-sm mb-2">
+          ${t.jabatan}
+        </div>
+        <p class="text-xs text-white/60">
+          ${t.keterangan || ''}
+        </p>
+      </div>
+    `).join('')}
+  </div>
+  `;
+}
+
+    
+    else if(tab==='statistik'){
     c.innerHTML=`<h3 class="font-bold mb-6">Data Statistik</h3>
     <div class="grid sm:grid-cols-2 gap-4">
       <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Jumlah Siswa</label><div class="text-3xl font-black gradient-text">420</div></div>
