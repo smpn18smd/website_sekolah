@@ -858,6 +858,52 @@ async function simpanGuru(){
 }
 
 
+// ===== EDIT GURU =====
+async function editGuru(id){
+  const guru =
+    teachers.find(t => t.id === id);
+  if(!guru) return;
+  const name =
+    prompt(
+      "Edit Nama Guru",
+      guru.name
+    );
+  if(name === null) return;
+  const jabatan =
+    prompt(
+      "Edit Jabatan",
+      guru.jabatan
+    );
+  if(jabatan === null) return;
+  const keterangan =
+    prompt(
+      "Edit Keterangan",
+      guru.keterangan || ""
+    );
+  if(keterangan === null) return;
+  const urutan =
+    getUrutanJabatan(jabatan);
+  const { error } =
+    await supabaseClient
+      .from('guru')
+      .update({
+        name,
+        jabatan,
+        keterangan,
+        urutan
+      })
+      .eq('id', id);
+  if(error){
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+  alert("Data guru berhasil diupdate");
+  await loadTeachers();
+  setAdminTab('guru');
+}
+
+
 // ===== EDIT BERITA =====
 async function editBerita(id){
 
