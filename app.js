@@ -521,23 +521,51 @@ else if(tab==='berita'){
     </div>
   </div>
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    ${teachers.map(t=>`
-      <div class="glass rounded-xl p-4">
-        <img
-          src="${t.photo_url}"
-          class="w-full h-56 object-cover rounded-xl mb-3"
-        >
-        <h4 class="font-bold">
-          ${t.name}
-        </h4>
-        <div class="text-gold-light text-sm mb-2">
-          ${t.jabatan}
-        </div>
-        <p class="text-xs text-white/60">
-          ${t.keterangan || ''}
-        </p>
-      </div>
-    `).join('')}
+
+  
+${teachers.map(t=>`
+<div class="glass rounded-xl p-4">
+
+  <img
+    src="${t.photo_url}"
+    class="w-full h-56 object-cover rounded-xl mb-3"
+  >
+
+  <h4 class="font-bold">
+    ${t.name}
+  </h4>
+
+  <div class="text-gold-light text-sm mb-2">
+    ${t.jabatan}
+  </div>
+
+  <p class="text-xs text-white/60 mb-4">
+    ${t.keterangan || ''}
+  </p>
+
+  <div class="flex gap-2">
+
+    <button
+      onclick="editGuru(${t.id})"
+      class="px-3 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs font-semibold"
+    >
+      Edit
+    </button>
+
+    <button
+      onclick="hapusGuru(${t.id}, '${t.photo_url}')"
+      class="px-3 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-semibold"
+    >
+      Hapus
+    </button>
+
+  </div>
+
+</div>
+`).join('')}
+
+
+    
   </div>
   `;
 }
