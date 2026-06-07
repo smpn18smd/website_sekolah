@@ -1416,7 +1416,8 @@ loadHeroImage();
 
 
 // ===== INIT =====
-renderTeachers();
+loadTeachers();
 loadNews();
+loadHeroImage();
 lucide.createIcons();
 initScrollAnim();
