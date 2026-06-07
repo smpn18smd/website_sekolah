@@ -1097,6 +1097,121 @@ document
 }
 
 
+// ===== Update GURU =====
+async function updateGuru(){
+  const id =
+    document.getElementById(
+      'edit-guru-id'
+    ).value;
+  const name =
+    document.getElementById(
+      'edit-guru-name'
+    ).value;
+  const jabatan =
+    document.getElementById(
+      'edit-guru-jabatan'
+    ).value;
+  const keterangan =
+    document.getElementById(
+      'edit-guru-keterangan'
+    ).value;
+  const file =
+    document.getElementById(
+      'edit-guru-photo'
+    ).files[0];
+  const guru =
+    teachers.find(
+      t => t.id == id
+    );
+  let photo_url =
+    guru.photo_url;
+
+  // ===== GANTI FOTO =====
+  if(file){
+    const compressed =
+      await compressTeacherImage(
+        file
+      );
+    const fileName =
+      Date.now() +
+      ".webp";
+    const {
+      error:uploadError
+    } =
+    await supabaseClient
+      .storage
+      .from('guru')
+      .upload(
+        fileName,
+        compressed,
+        {
+          contentType:
+            'image/webp'
+        }
+      );
+
+    if(uploadError){
+      alert(
+        uploadError.message
+      );
+
+      return;
+    }
+    const {
+      data:urlData
+    } =
+    supabaseClient.storage
+      .from('guru')
+      .getPublicUrl(
+        fileName
+      );
+    photo_url =
+      urlData.publicUrl;
+
+    // HAPUS FOTO LAMA
+    try{
+      const oldFile =
+        guru.photo_url
+        .split('/')
+        .pop();
+      await supabaseClient
+        .storage
+        .from('guru')
+        .remove([
+          oldFile
+        ]);
+    }catch(err){
+      console.error(err);
+    }
+  }
+  const urutan =
+    getUrutanJabatan(
+      jabatan
+    );
+  const { error } =
+    await supabaseClient
+      .from('guru')
+      .update({
+        name,
+        jabatan,
+        keterangan,
+        photo_url,
+        urutan
+      })
+      .eq('id', id);
+  if(error){
+    alert(error.message);
+    return;
+  }
+  alert(
+    "Guru berhasil diperbarui"
+  );
+  closeEditGuru();
+  await loadTeachers();
+  setAdminTab('guru');
+}
+
+
 // ===== ELEMENT SDK =====
 const defaultConfig={
   hero_title:'Mewujudkan Generasi Cerdas, Berkarakter, dan Berprestasi',
