@@ -520,6 +520,69 @@ else if(tab==='berita'){
       </button>
     </div>
   </div>
+
+
+<!-- MODAL EDIT GURU -->
+<div
+  id="edit-guru-modal"
+  class="hidden glass rounded-2xl p-5 mb-6"
+>
+  <h3 class="font-bold text-lg mb-4">
+    Edit Guru
+  </h3>
+  <input type="hidden" id="edit-guru-id">
+
+  <div class="grid gap-4">
+    <input
+      id="edit-guru-name"
+      type="text"
+      placeholder="Nama Guru"
+      class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+    >
+    <select
+      id="edit-guru-jabatan"
+      class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+    >
+      <option>Kepala Sekolah</option>
+      <option>Waka Kurikulum</option>
+      <option>Waka Kesiswaan</option>
+      <option>Guru</option>
+      <option>Staff TU</option>
+      <option>Perpustakaan</option>
+      <option>Tenaga Kependidikan</option>
+    </select>
+    <textarea
+      id="edit-guru-keterangan"
+      placeholder="Keterangan"
+      class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+    ></textarea>
+    <input
+      id="edit-guru-photo"
+      type="file"
+      accept=".jpg,.jpeg,.png,.webp"
+    >
+    <img
+      id="edit-guru-preview"
+      class="w-40 rounded-xl hidden"
+    >
+    <div class="flex gap-3">
+      <button
+        onclick="updateGuru()"
+        class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
+      >
+        Simpan Perubahan
+      </button>
+      <button
+        onclick="closeEditGuru()"
+        class="px-5 py-3 rounded-xl bg-white/10"
+      >
+        Batal
+      </button>
+    </div>
+  </div>
+</div>
+
+  
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
   
