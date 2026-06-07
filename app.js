@@ -904,6 +904,48 @@ async function editGuru(id){
 }
 
 
+// ===== HAPUS GURU =====
+async function hapusGuru(
+  id,
+  photoUrl
+){
+  const yakin =
+    confirm(
+      "Yakin ingin menghapus guru ini?"
+    );
+  if(!yakin) return;
+  try{
+    const fileName =
+      photoUrl.split('/').pop();
+    if(fileName){
+      await supabaseClient
+        .storage
+        .from('guru')
+        .remove([
+          fileName
+        ]);
+    }
+  }catch(err){
+    console.error(err);
+  }
+  const { error } =
+    await supabaseClient
+      .from('guru')
+      .delete()
+      .eq('id', id);
+  if(error){
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+  alert(
+    "Guru berhasil dihapus"
+  );
+  await loadTeachers();
+  setAdminTab('guru');
+}
+
+
 // ===== EDIT BERITA =====
 async function editBerita(id){
 
