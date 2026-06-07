@@ -921,52 +921,6 @@ async function simpanGuru(){
 }
 
 
-// ===== EDIT GURU =====
-async function editGuru(id){
-  const guru =
-    teachers.find(t => t.id === id);
-  if(!guru) return;
-  const name =
-    prompt(
-      "Edit Nama Guru",
-      guru.name
-    );
-  if(name === null) return;
-  const jabatan =
-    prompt(
-      "Edit Jabatan",
-      guru.jabatan
-    );
-  if(jabatan === null) return;
-  const keterangan =
-    prompt(
-      "Edit Keterangan",
-      guru.keterangan || ""
-    );
-  if(keterangan === null) return;
-  const urutan =
-    getUrutanJabatan(jabatan);
-  const { error } =
-    await supabaseClient
-      .from('guru')
-      .update({
-        name,
-        jabatan,
-        keterangan,
-        urutan
-      })
-      .eq('id', id);
-  if(error){
-    console.error(error);
-    alert(error.message);
-    return;
-  }
-  alert("Data guru berhasil diupdate");
-  await loadTeachers();
-  setAdminTab('guru');
-}
-
-
 // ===== HAPUS GURU =====
 async function hapusGuru(
   id,
@@ -1089,6 +1043,57 @@ async function hapusBerita(id, imageUrl){
   await loadNews();
 
   setAdminTab('berita');
+}
+
+
+// ===== EDIT GURU =====
+async function editGuru(id){
+  const guru =
+    teachers.find(
+      t => t.id === id
+    );
+  if(!guru) return;
+  document.getElementById(
+    'edit-guru-id'
+  ).value = guru.id;
+  document.getElementById(
+    'edit-guru-name'
+  ).value = guru.name;
+  document.getElementById(
+    'edit-guru-jabatan'
+  ).value = guru.jabatan;
+  document.getElementById(
+    'edit-guru-keterangan'
+  ).value =
+    guru.keterangan || '';
+  const preview =
+    document.getElementById(
+      'edit-guru-preview'
+    );
+  preview.src =
+    guru.photo_url;
+  preview.classList.remove(
+    'hidden'
+  );
+  document
+    .getElementById(
+      'edit-guru-modal'
+    )
+    .classList.remove(
+      'hidden'
+    );
+}
+
+
+// ===== CLOSE EDIT GURU =====
+function closeEditGuru(){
+document
+.getElementById(
+'edit-guru-modal'
+)
+.classList.add(
+'hidden'
+);
 }
 
 
