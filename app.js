@@ -63,8 +63,44 @@ t.keterangan
 }
 
 
+// ===== CAROUSEL GURU =====
+function initTeacherCarousel(){
+  const carousel =
+    document.getElementById(
+      'teachers-grid'
+    );
+  const next =
+    document.getElementById(
+      'teacher-next'
+    );
+  const prev =
+    document.getElementById(
+      'teacher-prev'
+    );
+  if(!carousel) return;
+  next?.addEventListener(
+    'click',
+    ()=>{
+      carousel.scrollBy({
+        left:300,
+        behavior:'smooth'
+      });
+    }
+  );
+  prev?.addEventListener(
+    'click',
+    ()=>{
+      carousel.scrollBy({
+        left:-300,
+        behavior:'smooth'
+      });
+    }
+  );
+}
+
 
 let news = [];
+
 async function loadNews(){
   const { data, error } = await supabaseClient
     .from('berita')
