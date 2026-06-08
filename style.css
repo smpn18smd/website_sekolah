@@ -215,18 +215,22 @@ right:-10px;
   }
   .hero-mobile-container .w-\[700px\]{
     width:100% !important;
-    max-width:380px;
-    height:260px !important;
-    border-radius:28px;
+    max-width:420px;
+    height:320px !important;
+    border-radius:30px;
     transform:none;
+    overflow:hidden;
   }
   .hero-school-img{
-    opacity:0.55;
-    transform:scale(1.05);
+    object-fit:cover;
+    opacity:.75;
+    transform:scale(1.08);
   }
   .hero-guru{
-    width:260px !important;
+    width:420px !important;
+    max-width:none;
     left:50%;
-    bottom:0;
+    bottom:-5px;
+    opacity:.95;
   }
 }
