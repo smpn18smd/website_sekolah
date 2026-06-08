@@ -206,19 +206,45 @@ right:-10px;
 /* ===== HERO MOBILE ===== */
 @media (max-width:768px){
 
-  /* kartu prestasi */
-  .hero-mobile-container .absolute.-bottom-0.-left-4{
-    left:5px !important;
-    bottom:5px !important;
-    transform:scale(.8);
-    transform-origin:left bottom;
+  .hero-mobile-container{
+    margin-top:15px;
   }
 
-  /* kartu siswa aktif */
-  .hero-mobile-container .absolute.-top-0.-right-4{
-    right:5px !important;
-    top:5px !important;
-    transform:scale(.8);
-    transform-origin:right top;
+  .hero-mobile-container .relative{
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
+
+  .hero-mobile .w-\[700px\]{
+    width:100% !important;
+    max-width:420px;
+    height:320px !important;
+    border-radius:30px;
+    transform:none;
+  }
+
+  .hero-school-img{
+    opacity:.75;
+    transform:scale(1.08);
+  }
+
+  .hero-guru{
+    width:380px !important;
+    max-width:none;
+    bottom:-5px;
+    left:50%;
+  }
+
+  .hero-badge-prestasi{
+    transform:scale(.75);
+    left:-10px;
+    bottom:-15px;
+  }
+
+  .hero-badge-siswa{
+    transform:scale(.75);
+    right:-10px;
+    top:-15px;
   }
 }
