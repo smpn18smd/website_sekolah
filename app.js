@@ -30,6 +30,7 @@ return;
 }
 teachers = data;
 renderTeachers();
+initTeacherCarousel();
 }
 
 
