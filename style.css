@@ -202,3 +202,31 @@ left:-10px;
 #teacher-next{
 right:-10px;
 }
+
+/* ===== HERO MOBILE ===== */
+@media (max-width:768px){
+  .hero-mobile-container{
+    margin-top:20px;
+  }
+  .hero-mobile-container .relative{
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
+  .hero-mobile-container .w-\[700px\]{
+    width:100% !important;
+    max-width:380px;
+    height:260px !important;
+    border-radius:28px;
+    transform:none;
+  }
+  .hero-school-img{
+    opacity:0.55;
+    transform:scale(1.05);
+  }
+  .hero-guru{
+    width:260px !important;
+    left:50%;
+    bottom:0;
+  }
+}
