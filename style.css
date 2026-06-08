@@ -116,10 +116,12 @@ border-radius:16px;
 margin-top:16px;
 }
 
+
 /* ===== CAROUSEL GURU ===== */
 .teacher-wrapper{
 position:relative;
 }
+
 .teacher-carousel{
 display:flex;
 gap:20px;
@@ -127,7 +129,19 @@ overflow-x:auto;
 scroll-behavior:smooth;
 padding:10px;
 scrollbar-width:none;
+
+/* tambahan */
+cursor:grab;
+-webkit-overflow-scrolling:touch;
+touch-action:pan-x;
 }
+
+.teacher-carousel:active{
+cursor:grabbing;
+}
+
+
+
 .teacher-carousel::-webkit-scrollbar{
 display:none;
 }
