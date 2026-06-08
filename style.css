@@ -205,32 +205,20 @@ right:-10px;
 
 /* ===== HERO MOBILE ===== */
 @media (max-width:768px){
-  .hero-mobile-container{
-    margin-top:20px;
+
+  /* kartu prestasi */
+  .hero-mobile-container .absolute.-bottom-0.-left-4{
+    left:5px !important;
+    bottom:5px !important;
+    transform:scale(.8);
+    transform-origin:left bottom;
   }
-  .hero-mobile-container .relative{
-    width:100%;
-    display:flex;
-    justify-content:center;
-  }
-  .hero-mobile-container .w-\[700px\]{
-    width:100% !important;
-    max-width:420px;
-    height:320px !important;
-    border-radius:30px;
-    transform:none;
-    overflow:hidden;
-  }
-  .hero-school-img{
-    object-fit:cover;
-    opacity:.75;
-    transform:scale(1.08);
-  }
-  .hero-guru{
-    width:420px !important;
-    max-width:none;
-    left:50%;
-    bottom:-5px;
-    opacity:.95;
+
+  /* kartu siswa aktif */
+  .hero-mobile-container .absolute.-top-0.-right-4{
+    right:5px !important;
+    top:5px !important;
+    transform:scale(.8);
+    transform-origin:right top;
   }
 }
