@@ -216,13 +216,14 @@ right:-10px;
     justify-content:center;
   }
 
-  .hero-mobile .w-\[700px\]{
-    width:100% !important;
-    max-width:420px;
-    height:320px !important;
-    border-radius:30px;
-    transform:none;
-  }
+.hero-mobile .w-\[700px\]{
+  width:100% !important;
+  max-width:520px;
+  height:280px !important;
+  border-radius:30px;
+  transform:none;
+}
+
 
   .hero-school-img{
     opacity:.75;
