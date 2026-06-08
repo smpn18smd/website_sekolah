@@ -61,6 +61,11 @@ t.keterangan
 }
 </div>
 `).join('');
+
+  // aktifkan carousel setelah render
+  initTeacherCarousel();
+  enableTeacherDrag();
+  
 }
 
 
