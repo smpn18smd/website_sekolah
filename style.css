@@ -206,51 +206,32 @@ right:-10px;
 /* ===== HERO MOBILE ===== */
 @media (max-width:768px){
 
-  .hero-mobile-container{
-    margin-top:15px;
-  }
-
-  .hero-mobile-container .relative{
-    width:100%;
-    display:flex;
-    justify-content:center;
-  }
-
-.hero-mobile .w-\[700px\]{
-  width:100% !important;
-  max-width:560px;
-  height:230px !important;
-  border-radius:30px;
-  transform:none;
-}
-
-
-  .hero-school-img{
-    opacity:.75;
-    transform:scale(1.08);
+  .hero-mobile .w-\[700px\]{
+    width:100% !important;
+    max-width:560px;
+    height:280px !important;
+    border-radius:30px;
+    transform:none;
   }
 
   .hero-guru{
-    width:350px !important;
-    max-width:none;
+    width:300px !important;
     bottom:-5px;
     left:50%;
   }
 
-
   .hero-badge-prestasi{
     transform:scale(.60);
-    left:-35px;
-    bottom:-45px;
-    z-index:10;
+    left:-30px;
+    bottom:-55px;
+    z-index:20;
   }
 
   .hero-badge-siswa{
     transform:scale(.60);
-    right:-25px;
-    top:-25px;
-    z-index:10;
+    right:-15px;
+    top:-55px;
+    z-index:20;
   }
-  
 
 }
