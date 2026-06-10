@@ -238,26 +238,18 @@ right:-10px;
   }
 
 
-  .hero-badge-prestasi,
+  .hero-badge-prestasi{
+    transform:scale(.60);
+    left:-35px;
+    bottom:-45px;
+    z-index:10;
+  }
+
   .hero-badge-siswa{
-    transform:scale(.30);
-    padding:10px;
-  }
-
-  .hero-badge-prestasi .w-10,
-  .hero-badge-siswa .w-10{
-    width:32px;
-    height:32px;
-  }
-
-  .hero-badge-prestasi .text-sm,
-  .hero-badge-siswa .text-sm{
-    font-size:12px;
-  }
-
-  .hero-badge-prestasi .text-xs,
-  .hero-badge-siswa .text-xs{
-    font-size:10px;
+    transform:scale(.60);
+    right:-25px;
+    top:-25px;
+    z-index:10;
   }
   
 
