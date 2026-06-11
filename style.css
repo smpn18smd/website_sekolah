@@ -238,21 +238,27 @@ right:-10px;
   }
 
 
-  .hero-badge-prestasi{
-  transform:scale(.45);
-  left:-25px;
+.hero-badge-prestasi{
   top:10px;
+  left:10px;
+  bottom:auto;
+  right:auto;
 
-  bottom:unset;
-  z-index:10;
+  transform:scale(.45);
+  transform-origin:top left;
+  z-index:30;
 }
 
-  .hero-badge-siswa{
-    transform:scale(.45);
-    right:-25px;
-    top:-25px;
-    z-index:10;
-  }
+.hero-badge-siswa{
+  top:10px;
+  right:10px;
+  bottom:auto;
+  left:auto;
+
+  transform:scale(.45);
+  transform-origin:top right;
+  z-index:30;
+}
   
 
 }
