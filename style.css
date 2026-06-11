@@ -240,13 +240,14 @@ right:-10px;
 
   .hero-badge-prestasi{
     transform:scale(.45);
-    left:0;
-    bottom:-20px;
+    left:-25px;
+    top:-25px;
+    bottom:auto;
     z-index:10;
   }
 
   .hero-badge-siswa{
-    transform:scale(.60);
+    transform:scale(.45);
     right:-25px;
     top:-25px;
     z-index:10;
