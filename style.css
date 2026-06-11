@@ -239,11 +239,13 @@ right:-10px;
 
 
   .hero-badge-prestasi{
-    transform:scale(.45);
-    left:-25px;
-    top:-25px;
-    z-index:10;
-  }
+  transform:scale(.45);
+  left:-25px;
+  top:10px;
+
+  bottom:unset;
+  z-index:10;
+}
 
   .hero-badge-siswa{
     transform:scale(.45);
