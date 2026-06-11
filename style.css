@@ -203,6 +203,21 @@ left:-10px;
 right:-10px;
 }
 
+/* ===== HERO BADGE DESKTOP ===== */
+.hero-badge-prestasi{
+  position:absolute;
+  left:-20px;
+  bottom:20px;
+  z-index:30;
+}
+
+.hero-badge-siswa{
+  position:absolute;
+  right:-20px;
+  top:20px;
+  z-index:30;
+}
+
 /* ===== HERO MOBILE ===== */
 @media (max-width:768px){
 
