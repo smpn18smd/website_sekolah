@@ -8,7 +8,7 @@ async function loadStatistikSiswa(){
       .from('statistik_siswa')
       .select('*')
       .limit(1)
-      .single();
+      .maybeSingle();
   if(error){
     console.error(error);
     return;
@@ -62,7 +62,7 @@ const { error } =
 await supabaseClient
 .from('statistik_siswa')
 .update(data)
-.eq('id', 1);
+.eq('id', statistikSiswa.id);
 if(error){
 alert(error.message);
 return;
