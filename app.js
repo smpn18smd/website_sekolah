@@ -1514,35 +1514,6 @@ updateDateTime();
 
 setInterval(updateDateTime, 1000);
  
-// ===== TOTAL SISWA OTOMATIS =====
-function updateTotalSiswaAktif() {
-
-  // Ambil semua angka siswa per tingkat
-  const jumlahSiswa = document.querySelectorAll('#statistik .flex.justify-between span:last-child');
-
-  let total = 0;
-
-  jumlahSiswa.forEach(el => {
-    const angka = parseInt(el.textContent.trim()) || 0;
-    total += angka;
-  });
-
-  // Tampilkan ke hero section
-  const heroTotal = document.getElementById('total-siswa-aktif');
-  if(heroTotal){
-    heroTotal.textContent = total;
-  }
-
-  // Update statistik utama otomatis
-  const counterTotal = document.querySelector('.counter[data-target]');
-  if(counterTotal){
-    counterTotal.dataset.target = total;
-    counterTotal.textContent = total;
-  }
-}
-
-// Jalankan otomatis
-updateTotalSiswaAktif();
 
 
 
