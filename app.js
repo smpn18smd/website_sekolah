@@ -22,6 +22,19 @@ function renderStatistikSiswaWebsite(){
 
   if(!statistikSiswa) return;
 
+    // TOTAL PER KELAS
+  const total7 =
+    statistikSiswa.kelas7_laki +
+    statistikSiswa.kelas7_perempuan;
+
+  const total8 =
+    statistikSiswa.kelas8_laki +
+    statistikSiswa.kelas8_perempuan;
+
+  const total9 =
+    statistikSiswa.kelas9_laki +
+    statistikSiswa.kelas9_perempuan;
+
   const total =
     statistikSiswa.kelas7_laki +
     statistikSiswa.kelas7_perempuan +
@@ -44,6 +57,26 @@ function renderStatistikSiswaWebsite(){
   if(sekolah){
     sekolah.textContent = total;
   }
+
+ // SISWA PER TINGKAT
+  const k7 =
+    document.getElementById(
+      'kelas7-total'
+    );
+
+  const k8 =
+    document.getElementById(
+      'kelas8-total'
+    );
+
+  const k9 =
+    document.getElementById(
+      'kelas9-total'
+    );
+
+  if(k7) k7.textContent = total7;
+  if(k8) k8.textContent = total8;
+  if(k9) k9.textContent = total9;
   
 }
 
