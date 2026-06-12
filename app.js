@@ -38,6 +38,13 @@ function renderStatistikSiswaWebsite(){
   if(hero){
     hero.textContent = total;
   }
+
+   const sekolah =
+    document.getElementById('total-siswa-sekolah');
+  if(sekolah){
+    sekolah.textContent = total;
+  }
+  
 }
 
 // ===== fungsi hasil total siswa =====
