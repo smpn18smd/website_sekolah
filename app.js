@@ -40,6 +40,19 @@ function renderStatistikSiswaWebsite(){
   }
 }
 
+// ===== fungsi hasil total siswa =====
+function getTotalSiswa(){
+if(!statistikSiswa) return 0;
+return (
+  statistikSiswa.kelas7_laki +
+  statistikSiswa.kelas7_perempuan +
+  statistikSiswa.kelas8_laki +
+  statistikSiswa.kelas8_perempuan +
+  statistikSiswa.kelas9_laki +
+  statistikSiswa.kelas9_perempuan
+);
+}
+
 // ===== fungsi simpan statistik siswa =====
 async function simpanStatistikSiswa(){
 
@@ -424,7 +437,7 @@ function setAdminTab(tab){
   const c=document.getElementById('admin-content');
   if(tab==='dashboard'){
     c.innerHTML=`<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Siswa</div><div class="text-2xl font-bold gradient-text">420</div></div>
+      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Siswa</div><div class="text-2xl font-bold gradient-text">${getTotalSiswa()}</div></div>
       <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Guru</div><div class="text-2xl font-bold gradient-text">25</div></div>
       <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Berita Aktif</div><div class="text-2xl font-bold gradient-text">${news.length}</div></div>
       <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Prestasi</div><div class="text-2xl font-bold gradient-text"></div></div>
