@@ -762,16 +762,83 @@ ${teachers.map(t=>`
   `;
 }
 
-    
-    else if(tab==='statistik'){
-    c.innerHTML=`<h3 class="font-bold mb-6">Data Statistik</h3>
-    <div class="grid sm:grid-cols-2 gap-4">
-      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Jumlah Siswa</label><div class="text-3xl font-black gradient-text">420</div></div>
-      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Jumlah Guru</label><div class="text-3xl font-black gradient-text">52</div></div>
-      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Prestasi</label><div class="text-3xl font-black gradient-text">53</div></div>
-      <div class="glass rounded-xl p-5"><label class="text-xs text-white/40 block mb-2">Ekstrakurikuler</label><div class="text-3xl font-black gradient-text">12</div></div>
-    </div>`;
-  }
+
+else if(tab==='statistik'){
+c.innerHTML = `
+<div class="glass rounded-2xl p-6">
+<h3 class="font-bold text-lg mb-6">
+Data Statistik Siswa
+</h3>
+<div class="grid md:grid-cols-3 gap-6">
+<div class="glass rounded-xl p-4">
+<h4 class="font-bold mb-4">
+Kelas VII
+</h4>
+<input
+id="k7l"
+type="number"
+placeholder="Laki-laki"
+class="stat-input"
+value="${statistikSiswa?.kelas7_laki || 0}"
+>
+<input
+id="k7p"
+type="number"
+placeholder="Perempuan"
+class="stat-input mt-3"
+value="${statistikSiswa?.kelas7_perempuan || 0}"
+>
+</div>
+<div class="glass rounded-xl p-4">
+<h4 class="font-bold mb-4">
+Kelas VIII
+</h4>
+<input
+id="k8l"
+type="number"
+placeholder="Laki-laki"
+class="stat-input"
+value="${statistikSiswa?.kelas8_laki || 0}"
+>
+<input
+id="k8p"
+type="number"
+placeholder="Perempuan"
+class="stat-input mt-3"
+value="${statistikSiswa?.kelas8_perempuan || 0}"
+>
+</div>
+<div class="glass rounded-xl p-4">
+<h4 class="font-bold mb-4">
+Kelas IX
+</h4>
+<input
+id="k9l"
+type="number"
+placeholder="Laki-laki"
+class="stat-input"
+value="${statistikSiswa?.kelas9_laki || 0}"
+>
+<input
+id="k9p"
+type="number"
+placeholder="Perempuan"
+class="stat-input mt-3"
+value="${statistikSiswa?.kelas9_perempuan || 0}"
+>
+</div>
+</div>
+<button
+onclick="simpanStatistikSiswa()"
+class="btn-primary px-5 py-3 rounded-xl mt-6 text-navy font-bold"
+>
+Simpan Statistik
+</button>
+</div>
+`;
+}
+
+  
   lucide.createIcons();
 }
 
