@@ -40,6 +40,40 @@ function renderStatistikSiswaWebsite(){
   }
 }
 
+// ===== fungsi simpan statistik siswa =====
+async function simpanStatistikSiswa(){
+const data = {
+kelas7_laki:
+parseInt(document.getElementById('k7l').value) || 0,
+kelas7_perempuan:
+parseInt(document.getElementById('k7p').value) || 0,
+kelas8_laki:
+parseInt(document.getElementById('k8l').value) || 0,
+kelas8_perempuan:
+parseInt(document.getElementById('k8p').value) || 0,
+kelas9_laki:
+parseInt(document.getElementById('k9l').value) || 0,
+kelas9_perempuan:
+parseInt(document.getElementById('k9p').value) || 0,
+updated_at:
+new Date()
+};
+const { error } =
+await supabaseClient
+.from('statistik_siswa')
+.update(data)
+.eq('id', 1);
+if(error){
+alert(error.message);
+return;
+}
+alert(
+'Statistik siswa berhasil disimpan'
+);
+await loadStatistikSiswa();
+setAdminTab('statistik');
+}
+
 // ===== DATA =====
 let teachers = [];
 
