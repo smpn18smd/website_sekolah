@@ -58,6 +58,9 @@ parseInt(document.getElementById('k9p').value) || 0,
 updated_at:
 new Date()
 };
+
+console.log(data);
+
 const { error } =
 await supabaseClient
 .from('statistik_siswa')
