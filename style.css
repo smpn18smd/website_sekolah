@@ -207,7 +207,7 @@ right:-10px;
 .hero-badge-prestasi{
   position:absolute;
   left:-20px;
-  bottom:20px;
+  bottom:0px;
   z-index:30;
   transform: scale(0.5);
 }
