@@ -272,6 +272,25 @@ function renderNews(){
 
 }
 
+// ===== buat fungsi load data siswa =====
+async function loadStatistikSiswa(){
+
+  const { data, error } =
+    await supabaseClient
+      .from('statistik_siswa')
+      .select('*')
+      .limit(1)
+      .single();
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  statistikSiswa = data;
+
+  renderStatistikSiswaWebsite();
+}
 
 // ===== COUNTER ANIMATION =====
 function animateCounters(){
