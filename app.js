@@ -72,20 +72,6 @@ alert(
 );
 await loadStatistikSiswa();
 setAdminTab('statistik');
-
-
-  
-console.log('ID AKTIF', statistikSiswa.id);
-const { data: hasil, error } =
-await supabaseClient
-.from('statistik_siswa')
-.update(data)
-.eq('id', statistikSiswa.id)
-.select();
-console.log('HASIL', hasil);
-console.log('ERROR', error);
-
-
   
 }
 
