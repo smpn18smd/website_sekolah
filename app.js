@@ -1,6 +1,45 @@
 // ===== untuk variabel statistikSiswa =====
 let statistikSiswa = null;
 
+// ===== buat fungsi load data siswa =====
+async function loadStatistikSiswa(){
+  const { data, error } =
+    await supabaseClient
+      .from('statistik_siswa')
+      .select('*')
+      .limit(1)
+      .single();
+  if(error){
+    console.error(error);
+    return;
+  }
+  statistikSiswa = data;
+  renderStatistikSiswaWebsite();
+}
+
+// ===== buat fungsi render tampilkan ke website =====
+function renderStatistikSiswaWebsite(){
+
+  if(!statistikSiswa) return;
+
+  const total =
+    statistikSiswa.kelas7_laki +
+    statistikSiswa.kelas7_perempuan +
+    statistikSiswa.kelas8_laki +
+    statistikSiswa.kelas8_perempuan +
+    statistikSiswa.kelas9_laki +
+    statistikSiswa.kelas9_perempuan;
+
+  const hero =
+    document.getElementById(
+      'total-siswa-aktif'
+    );
+
+  if(hero){
+    hero.textContent = total;
+  }
+}
+
 // ===== DATA =====
 let teachers = [];
 
@@ -270,26 +309,6 @@ function renderNews(){
     });
   };
 
-}
-
-// ===== buat fungsi load data siswa =====
-async function loadStatistikSiswa(){
-
-  const { data, error } =
-    await supabaseClient
-      .from('statistik_siswa')
-      .select('*')
-      .limit(1)
-      .single();
-
-  if(error){
-    console.error(error);
-    return;
-  }
-
-  statistikSiswa = data;
-
-  renderStatistikSiswaWebsite();
 }
 
 // ===== COUNTER ANIMATION =====
@@ -1712,5 +1731,7 @@ loadHeroImage();
 loadTeachers();
 loadNews();
 loadHeroImage();
+loadStatistikSiswa();
+
 lucide.createIcons();
 initScrollAnim();
