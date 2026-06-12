@@ -1,3 +1,6 @@
+// ===== untuk variabel statistikSiswa =====
+let statistikSiswa = null;
+
 // ===== DATA =====
 let teachers = [];
 
