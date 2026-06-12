@@ -42,6 +42,9 @@ function renderStatistikSiswaWebsite(){
 
 // ===== fungsi simpan statistik siswa =====
 async function simpanStatistikSiswa(){
+
+console.log(statistikSiswa);
+
 const data = {
 kelas7_laki:
 parseInt(document.getElementById('k7l').value) || 0,
@@ -58,8 +61,6 @@ parseInt(document.getElementById('k9p').value) || 0,
 updated_at:
 new Date()
 };
-
-console.log(data);
 
 const { error } =
 await supabaseClient
