@@ -163,6 +163,17 @@ setAdminTab('statistik');
 // ===== DATA =====
 let teachers = [];
 
+function getTotalTenagaPendidik(){
+  return teachers.filter(guru => {
+    return (
+      guru.jabatan === 'Kepala Sekolah' ||
+      guru.jabatan === 'Waka Kurikulum' ||
+      guru.jabatan === 'Waka Kesiswaan' ||
+      guru.jabatan === 'Guru'
+    );
+  }).length;
+}
+
 // ===== URUTAN JABATAN =====
 function getUrutanJabatan(jabatan){
   const urutan = {
@@ -513,7 +524,7 @@ function setAdminTab(tab){
   if(tab==='dashboard'){
     c.innerHTML=`<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Siswa</div><div class="text-2xl font-bold gradient-text">${getTotalSiswa()}</div></div>
-      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Total Guru</div><div class="text-2xl font-bold gradient-text">25</div></div>
+      <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Tenaga Pendidik</div><div class="text-2xl font-bold gradient-text">${getTotalTenagaPendidik()}</div></div>
       <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Berita Aktif</div><div class="text-2xl font-bold gradient-text">${news.length}</div></div>
       <div class="glass rounded-xl p-5"><div class="text-xs text-white/40 mb-1">Prestasi</div><div class="text-2xl font-bold gradient-text"></div></div>
     </div>
