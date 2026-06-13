@@ -235,6 +235,16 @@ t.keterangan
 </div>
 `).join('');
 
+const totalPendidik =
+  document.getElementById(
+    'total-tenaga-pendidik'
+  );
+
+if(totalPendidik){
+  totalPendidik.textContent =
+    getTotalTenagaPendidik();
+}
+  
   // aktifkan carousel setelah render
   initTeacherCarousel();
   enableTeacherDrag();
