@@ -77,6 +77,34 @@ function renderStatistikSiswaWebsite(){
   if(k7) k7.textContent = total7;
   if(k8) k8.textContent = total8;
   if(k9) k9.textContent = total9;
+
+// progress bar siswa per tingkat
+const terbesar =
+  Math.max(total7, total8, total9);
+
+const bar7 =
+  document.getElementById('kelas7-bar');
+
+const bar8 =
+  document.getElementById('kelas8-bar');
+
+const bar9 =
+  document.getElementById('kelas9-bar');
+
+if(bar7){
+  bar7.style.width =
+    ((total7 / terbesar) * 100) + '%';
+}
+
+if(bar8){
+  bar8.style.width =
+    ((total8 / terbesar) * 100) + '%';
+}
+
+if(bar9){
+  bar9.style.width =
+    ((total9 / terbesar) * 100) + '%';
+}
   
 }
 
