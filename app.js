@@ -442,8 +442,15 @@ function animateCounters(){
 
 // ===== CHART BARS =====
 function animateCharts(){
-  document.querySelectorAll('.chart-bar').forEach(el=>{el.style.transition='width 1.2s ease';el.style.width=el.dataset.width});
-  document.querySelectorAll('.chart-bar-v').forEach(el=>{el.style.transition='height 1.2s ease';el.style.height=el.dataset.height});
+  document.querySelectorAll('.chart-bar')
+    .forEach(el=>{
+      el.style.transition = 'width 1.2s ease';
+    });
+  document.querySelectorAll('.chart-bar-v')
+    .forEach(el=>{
+      el.style.transition = 'height 1.2s ease';
+      el.style.height = el.dataset.height;
+    });
 }
 
 // ===== SCROLL ANIMATIONS =====
