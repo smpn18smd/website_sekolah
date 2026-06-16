@@ -1094,6 +1094,97 @@ Simpan Statistik
   lucide.createIcons();
 }
 
+async function submitPrestasi(){
+
+const title=
+document.getElementById('prestasi-title').value;
+
+const category=
+document.getElementById('prestasi-category').value;
+
+const description=
+document.getElementById('prestasi-description').value;
+
+const file=
+document.getElementById('prestasi-image').files[0];
+
+if(!title || !file){
+
+alert("Nama prestasi dan foto wajib diisi");
+
+return;
+
+}
+
+const compressed=
+await compressImage(file);
+
+const fileName=
+Date.now()
++
+"-prestasi.webp";
+
+const {error:uploadError}
+=
+await supabaseClient.storage
+.from('prestasi')
+.upload(
+fileName,
+compressed,
+{
+contentType:'image/webp'
+}
+);
+
+if(uploadError){
+
+alert(uploadError.message);
+return;
+
+}
+
+const {data:urlData}
+=
+supabaseClient.storage
+.from('prestasi')
+.getPublicUrl(fileName);
+
+
+const today=
+new Date()
+.toLocaleDateString('id-ID');
+
+const {error}
+=
+await supabaseClient
+.from('prestasi')
+.insert({
+
+title,
+category,
+description,
+image_url:urlData.publicUrl,
+date:today
+
+});
+
+
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+alert("Prestasi berhasil ditambahkan");
+
+await loadPrestasi();
+
+setAdminTab('prestasi');
+
+}
+
 async function tambahBerita() {
 
   // ===== FORM INPUT =====
