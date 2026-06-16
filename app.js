@@ -1185,6 +1185,54 @@ setAdminTab('prestasi');
 
 }
 
+async function hapusPrestasi(id,imageUrl){
+
+if(!confirm(
+"Yakin hapus prestasi ini?"
+))
+return;
+
+try{
+
+const fileName=
+imageUrl.split('/').pop();
+
+await supabaseClient.storage
+.from('prestasi')
+.remove([
+fileName
+]);
+
+}catch(e){
+
+console.log(e);
+
+}
+
+const {error}
+=
+await supabaseClient
+.from('prestasi')
+.delete()
+.eq('id',id);
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+alert(
+"Prestasi berhasil dihapus"
+);
+
+await loadPrestasi();
+
+setAdminTab('prestasi');
+
+}
+
 async function tambahBerita() {
 
   // ===== FORM INPUT =====
