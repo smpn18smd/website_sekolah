@@ -522,7 +522,34 @@ tailwind.config={theme:{extend:{fontFamily:{poppins:['Poppins','sans-serif']},co
        </div>
       </div>
      </div>
-     <nav class="flex-1 p-4 space-y-1"><button onclick="setAdminTab('dashboard')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="dashboard"><i data-lucide="layout-dashboard" style="width:18px;height:18px"></i>Dashboard</button> <button onclick="setAdminTab('berita')" class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" data-tab="berita"><i data-lucide="newspaper" style="width:18px;height:18px"></i>Kelola Berita</button> 
+     <nav class="flex-1 p-4 space-y-1">
+      
+      <button 
+       onclick="setAdminTab('dashboard')" 
+       class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" 
+       data-tab="dashboard">
+       <i data-lucide="layout-dashboard" style="width:18px;height:18px"></i>
+       Dashboard
+      </button> 
+
+      <button
+       onclick="setAdminTab('prestasi')"
+       class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors"
+       data-tab="prestasi"
+      >
+       <i data-lucide="trophy" style="width:18px;height:18px"></i>
+       Kelola Prestasi
+      </button>
+
+      
+      <button 
+       onclick="setAdminTab('berita')" 
+       class="admin-nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 transition-colors" 
+       data-tab="berita"
+      >
+       <i data-lucide="newspaper" style="width:18px;height:18px"></i>
+       Kelola Berita
+      </button> 
       
       <button
         onclick="setAdminTab('hero')"
