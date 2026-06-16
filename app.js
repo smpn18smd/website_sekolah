@@ -568,6 +568,88 @@ function setAdminTab(tab){
     </div></div>`;
   } 
     
+else if(tab==='prestasi'){
+c.innerHTML=`
+<div class="glass rounded-2xl p-6 mb-6">
+<h3 class="font-bold text-lg mb-5">
+Tambah Prestasi
+</h3>
+<div class="grid gap-4">
+<input
+id="prestasi-title"
+placeholder="Nama Prestasi"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+>
+<input
+id="prestasi-category"
+placeholder="Kategori (Akademik / Non Akademik)"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+>
+<textarea
+id="prestasi-description"
+placeholder="Keterangan Prestasi"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+></textarea>
+<input
+id="prestasi-image"
+type="file"
+accept=".jpg,.jpeg,.png,.webp"
+>
+<img
+id="prestasi-preview"
+class="hidden w-48 rounded-xl"
+>
+<button
+onclick="submitPrestasi()"
+class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
+>
+Simpan Prestasi
+</button>
+</div>
+</div>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+${prestasi.map(p=>`
+<div class="glass rounded-xl p-4">
+<img
+src="${p.image_url}"
+class="w-full h-52 object-cover rounded-xl mb-3"
+>
+<h4 class="font-bold">
+${p.title}
+</h4>
+<div class="text-gold-light text-sm">
+${p.category || ''}
+</div>
+<p class="text-xs text-white/60 mt-2">
+${p.description || ''}
+</p>
+<div class="flex gap-2 mt-4">
+<button
+onclick="hapusPrestasi(${p.id},'${p.image_url}')"
+class="px-3 py-2 rounded-lg bg-red-500/20 text-red-300 text-xs"
+>
+Hapus
+</button>
+</div>
+</div>
+`).join('')}
+</div>
+`;
+const input=document.getElementById(
+'prestasi-image'
+);
+const preview=document.getElementById(
+'prestasi-preview'
+);
+input.onchange=function(){
+const file=this.files[0];
+if(!file)return;
+preview.src=
+URL.createObjectURL(file);
+preview.classList.remove('hidden');
+};
+}
+
   
 else if(tab==='berita'){
 
