@@ -163,6 +163,24 @@ setAdminTab('statistik');
 // ===== Variabel Global Prestasi =====
 let prestasi = [];
 
+async function loadPrestasi(){
+
+const {data,error}=await supabaseClient
+.from('prestasi')
+.select('*')
+.order('created_at',{
+ascending:false
+});
+
+if(error){
+
+console.error(error);
+return;
+}
+prestasi=data || [];
+}
+
+
 
 // ===== DATA =====
 let teachers = [];
@@ -1918,6 +1936,7 @@ loadHeroImage();
 
 
 // ===== INIT =====
+loadPrestasi();
 loadTeachers();
 loadNews();
 loadHeroImage();
