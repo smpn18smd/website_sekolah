@@ -160,6 +160,10 @@ setAdminTab('statistik');
   
 }
 
+// ===== Variabel Global Prestasi =====
+let prestasi = [];
+
+
 // ===== DATA =====
 let teachers = [];
 
