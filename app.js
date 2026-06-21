@@ -624,6 +624,14 @@ ${p.category || ''}
 ${p.description || ''}
 </p>
 <div class="flex gap-2 mt-4">
+
+<button
+onclick="editPrestasi(${p.id})"
+class="px-3 py-2 rounded-lg bg-yellow-500/20 text-yellow-300 text-xs"
+>
+Edit
+</button>
+
 <button
 onclick="hapusPrestasi(${p.id},'${p.image_url}')"
 class="px-3 py-2 rounded-lg bg-red-500/20 text-red-300 text-xs"
