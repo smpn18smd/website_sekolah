@@ -1250,6 +1250,18 @@ async function editPrestasi(id){
 }
 
 
+// ===== CLOSE EDIT PRESTASI =====
+function closeEditPrestasi(){
+document
+.getElementById(
+'edit-prestasi-modal'
+)
+.classList.add(
+'hidden'
+);
+
+}
+
 async function hapusPrestasi(id,imageUrl){
 
 if(!confirm(
