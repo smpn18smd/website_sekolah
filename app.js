@@ -1193,6 +1193,86 @@ setAdminTab('prestasi');
 
 }
 
+// ===== EDIT PRESTASI =====
+async function editPrestasi(id){
+
+  const p =
+    prestasi.find(
+      item => item.id === id
+    );
+
+  if(!p) return;
+
+
+  const title =
+    prompt(
+      "Edit Nama Prestasi",
+      p.title
+    );
+
+  if(title === null) return;
+
+
+  const category =
+    prompt(
+      "Edit Kategori",
+      p.category || ''
+    );
+
+  if(category === null) return;
+
+
+  const description =
+    prompt(
+      "Edit Keterangan Prestasi",
+      p.description || ''
+    );
+
+  if(description === null) return;
+
+
+
+  const { error } =
+    await supabaseClient
+      .from('prestasi')
+      .update({
+        title,
+        category,
+        description
+      })
+      .eq(
+        'id',
+        id
+      );
+
+
+  if(error){
+
+    console.error(error);
+
+    alert(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Prestasi berhasil diperbarui"
+  );
+
+
+  await loadPrestasi();
+
+
+  setAdminTab(
+    'prestasi'
+  );
+
+}
+
 async function hapusPrestasi(id,imageUrl){
 
 if(!confirm(
