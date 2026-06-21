@@ -1262,6 +1262,165 @@ document
 
 }
 
+// ===== UPDATE PRESTASI =====
+
+async function updatePrestasi(){
+
+const id =
+document.getElementById(
+'edit-prestasi-id'
+).value;
+
+const title =
+document.getElementById(
+'edit-prestasi-title'
+).value;
+
+const category =
+document.getElementById(
+'edit-prestasi-category'
+).value;
+
+const description =
+document.getElementById(
+'edit-prestasi-description'
+).value;
+
+const file =
+document.getElementById(
+'edit-prestasi-image'
+).files[0];
+
+const p =
+prestasi.find(
+item => item.id == id
+);
+
+
+let image_url =
+p.image_url;
+
+
+// ===== JIKA GANTI FOTO =====
+
+if(file){
+
+const compressed =
+await compressImage(file);
+
+const fileName =
+Date.now()
++'.webp';
+
+const {
+error:uploadError
+}
+=
+await supabaseClient
+.storage
+.from('prestasi')
+.upload(
+fileName,
+compressed,
+{
+contentType:
+'image/webp'
+}
+);
+
+if(uploadError){
+
+alert(
+uploadError.message
+);
+
+return;
+
+}
+
+const {
+data:urlData
+}
+=
+supabaseClient
+.storage
+.from('prestasi')
+.getPublicUrl(
+fileName
+);
+
+image_url =
+urlData.publicUrl;
+
+// HAPUS FOTO LAMA
+
+try{
+
+const oldFile =
+p.image_url
+.split('/')
+.pop();
+
+await supabaseClient
+.storage
+.from('prestasi')
+.remove([
+oldFile
+]);
+
+}catch(err){
+
+console.error(err);
+
+}
+
+}
+
+const {
+error
+}
+=
+await supabaseClient
+.from('prestasi')
+.update({
+
+title,
+category,
+description,
+image_url
+
+})
+.eq(
+'id',
+id
+);
+
+if(error){
+
+alert(
+error.message
+);
+
+return;
+
+}
+
+alert(
+"Prestasi berhasil diperbarui"
+);
+
+closeEditPrestasi();
+
+await loadPrestasi();
+
+
+setAdminTab(
+'prestasi'
+);
+
+}
+
+
 async function hapusPrestasi(id,imageUrl){
 
 if(!confirm(
