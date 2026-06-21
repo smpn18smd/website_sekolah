@@ -1204,74 +1204,51 @@ async function editPrestasi(id){
   if(!p) return;
 
 
-  const title =
-    prompt(
-      "Edit Nama Prestasi",
-      p.title
+  document.getElementById(
+    'edit-prestasi-id'
+  ).value = p.id;
+
+
+  document.getElementById(
+    'edit-prestasi-title'
+  ).value = p.title;
+
+
+  document.getElementById(
+    'edit-prestasi-category'
+  ).value = p.category || '';
+
+
+  document.getElementById(
+    'edit-prestasi-description'
+  ).value = p.description || '';
+
+
+  const preview =
+    document.getElementById(
+      'edit-prestasi-preview'
     );
 
-  if(title === null) return;
+
+  preview.src =
+    p.image_url;
 
 
-  const category =
-    prompt(
-      "Edit Kategori",
-      p.category || ''
-    );
-
-  if(category === null) return;
-
-
-  const description =
-    prompt(
-      "Edit Keterangan Prestasi",
-      p.description || ''
-    );
-
-  if(description === null) return;
-
-
-
-  const { error } =
-    await supabaseClient
-      .from('prestasi')
-      .update({
-        title,
-        category,
-        description
-      })
-      .eq(
-        'id',
-        id
-      );
-
-
-  if(error){
-
-    console.error(error);
-
-    alert(
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  alert(
-    "Prestasi berhasil diperbarui"
+  preview.classList.remove(
+    'hidden'
   );
 
 
-  await loadPrestasi();
-
-
-  setAdminTab(
-    'prestasi'
+  document
+  .getElementById(
+    'edit-prestasi-modal'
+  )
+  .classList.remove(
+    'hidden'
   );
 
 }
+
 
 async function hapusPrestasi(id,imageUrl){
 
