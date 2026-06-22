@@ -1969,45 +1969,6 @@ async function hapusGuru(
 }
 
 
-// ===== EDIT BERITA =====
-async function editBerita(id){
-
-  const berita = news.find(n => n.id === id);
-
-  if(!berita) return;
-
-  const title = prompt("Edit Judul", berita.title);
-  if(title === null) return;
-
-  const category = prompt("Edit Kategori", berita.category);
-  if(category === null) return;
-
-  const description = prompt("Edit Deskripsi", berita.description);
-  if(description === null) return;
-
-  const { error } = await supabaseClient
-    .from('berita')
-    .update({
-      title,
-      category,
-      description
-    })
-    .eq('id', id);
-
-  if(error){
-    console.error(error);
-    alert(error.message);
-    return;
-  }
-
-  alert("Berita berhasil diupdate");
-
-  await loadNews();
-
-  setAdminTab('berita');
-}
-
-
 // ===== HAPUS BERITA =====
 async function hapusBerita(id, imageUrl){
 
@@ -2051,6 +2012,64 @@ async function hapusBerita(id, imageUrl){
   setAdminTab('berita');
 }
 
+// ===== OPEN EDIT BERITA =====
+function openEditBerita(id){
+const berita =
+news.find(
+n=>n.id===id
+);
+
+if(!berita)return;
+
+document.getElementById(
+'edit-berita-id'
+).value =
+berita.id;
+
+document.getElementById(
+'edit-berita-title'
+).value =
+berita.title;
+
+document.getElementById(
+'edit-berita-category'
+).value =
+berita.category;
+
+document.getElementById(
+'edit-berita-description'
+).value =
+berita.description;
+
+const preview =
+document.getElementById(
+'edit-berita-preview'
+);
+
+preview.src =
+berita.image_url;
+
+preview.classList.remove(
+'hidden'
+);
+
+document
+.getElementById(
+'edit-berita-modal'
+)
+.classList.remove(
+'hidden'
+);
+
+document
+.getElementById(
+'edit-berita-modal'
+)
+.classList.add(
+'flex'
+);
+
+}
 
 // ===== EDIT GURU =====
 async function editGuru(id){
