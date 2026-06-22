@@ -1370,6 +1370,7 @@ return;
 alert("Prestasi berhasil ditambahkan");
 
 await loadPrestasi();
+await loadTotalPrestasi();
 
 setAdminTab('prestasi');
 
