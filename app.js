@@ -163,23 +163,34 @@ setAdminTab('statistik');
 // ===== Variabel Global Prestasi =====
 let prestasi = [];
 
+// ===== LOAD PRESTASI =====
+
 async function loadPrestasi(){
 
-const {data,error}=await supabaseClient
+const {
+data,
+error
+}
+=
+await supabaseClient
 .from('prestasi')
 .select('*')
-.order('created_at',{
+.order(
+'created_at',
+{
 ascending:false
-});
+}
+);
 
 if(error){
-
 console.error(error);
 return;
-}
-prestasi=data || [];
+
 }
 
+prestasi = data || [];
+renderPrestasi();
+}
 
 
 // ===== DATA =====
