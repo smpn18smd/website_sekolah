@@ -2087,6 +2087,153 @@ modal.classList.remove(
 );
 }
 
+async function updateBerita(){
+
+const id =
+document.getElementById(
+'edit-berita-id'
+).value;
+
+const title =
+document.getElementById(
+'edit-berita-title'
+).value;
+
+const category =
+document.getElementById(
+'edit-berita-category'
+).value;
+
+const description =
+document.getElementById(
+'edit-berita-description'
+).value;
+
+const file =
+document.getElementById(
+'edit-berita-image'
+).files[0];
+
+const berita =
+news.find(
+n=>n.id==id
+);
+
+let image_url =
+berita.image_url;
+
+// ===== GANTI GAMBAR =====
+
+if(file){
+
+const compressed =
+await compressImage(file);
+
+const fileName =
+Date.now()+'.webp';
+
+const {
+error:uploadError
+}
+=
+await supabaseClient
+.storage
+.from('berita')
+.upload(
+fileName,
+compressed,
+{
+contentType:'image/webp'
+}
+);
+
+if(uploadError){
+
+alert(
+uploadError.message
+);
+
+return;
+
+}
+
+const {
+data:urlData
+}
+=
+supabaseClient
+.storage
+.from('berita')
+.getPublicUrl(
+fileName
+);
+
+image_url =
+urlData.publicUrl;
+
+// hapus gambar lama
+
+try{
+
+const oldFile =
+berita.image_url
+.split('/')
+.pop();
+
+await supabaseClient
+.storage
+.from('berita')
+.remove([
+oldFile
+]);
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+// UPDATE DATABASE
+
+const {error}
+=
+await supabaseClient
+.from('berita')
+.update({
+
+title,
+category,
+description,
+image_url
+
+})
+.eq(
+'id',
+id
+);
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+alert(
+"Berita berhasil diperbarui"
+);
+
+closeEditBerita();
+
+await loadNews();
+
+setAdminTab(
+'berita'
+);
+}
+
 // ===== EDIT GURU =====
 async function editGuru(id){
   const guru =
