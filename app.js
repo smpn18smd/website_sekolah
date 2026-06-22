@@ -607,6 +607,98 @@ Simpan Prestasi
 </button>
 </div>
 </div>
+
+<!-- EDIT PRESTASI MODAL -->
+
+<div 
+id="edit-prestasi-modal"
+class="fixed inset-0 z-[90] hidden bg-black/60 flex items-center justify-center"
+>
+
+
+<div class="glass rounded-2xl p-6 w-full max-w-lg">
+
+
+<h3 class="font-bold text-xl mb-5">
+Edit Prestasi
+</h3>
+
+
+<input
+id="edit-prestasi-id"
+type="hidden"
+>
+
+
+<div class="grid gap-4">
+
+
+<input
+id="edit-prestasi-title"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+placeholder="Nama Prestasi"
+>
+
+
+<input
+id="edit-prestasi-category"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+placeholder="Kategori"
+>
+
+
+<textarea
+id="edit-prestasi-description"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+placeholder="Keterangan"
+></textarea>
+
+
+
+<input
+id="edit-prestasi-image"
+type="file"
+accept=".jpg,.jpeg,.png,.webp"
+>
+
+
+
+<img
+id="edit-prestasi-preview"
+class="w-48 rounded-xl"
+/>
+
+
+
+<div class="flex gap-3">
+
+
+<button
+onclick="updatePrestasi()"
+class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
+>
+Simpan
+</button>
+
+
+<button
+onclick="closeEditPrestasi()"
+class="px-5 py-3 rounded-xl bg-red-500/20 text-red-300"
+>
+Batal
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 ${prestasi.map(p=>`
 <div class="glass rounded-xl p-4">
