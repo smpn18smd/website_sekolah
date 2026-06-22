@@ -2371,6 +2371,68 @@ async function compressTeacherImage(file){
 }
 
 
+// ===== DETAIL PRESTASI =====
+function openPrestasiDetail(id){
+
+const p =
+prestasi.find(
+item=>item.id === id
+);
+
+if(!p) return;
+
+document.getElementById(
+'prestasi-detail-image'
+).src =
+p.image_url;
+
+document.getElementById(
+'prestasi-detail-category'
+).textContent =
+p.category || '';
+
+document.getElementById(
+'prestasi-detail-title'
+).textContent =
+p.title;
+
+document.getElementById(
+'prestasi-detail-description'
+).textContent =
+p.description || '';
+
+const modal =
+document.getElementById(
+'prestasi-detail-modal'
+);
+
+modal.classList.remove(
+'hidden'
+);
+
+modal.style.display =
+'flex';
+
+}
+
+// ===== CLOSE DETAIL PRESTASI =====
+function closePrestasiDetail(){
+
+const modal =
+document.getElementById(
+'prestasi-detail-modal'
+);
+
+modal.style.display =
+'none';
+
+modal.classList.add(
+'hidden'
+);
+
+}
+
+
 // ===== DETAIL BERITA =====
 function openNewsDetail(id){
   const berita = news.find(n => n.id === id);
