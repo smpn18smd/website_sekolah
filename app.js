@@ -192,6 +192,49 @@ prestasi = data || [];
 renderPrestasi();
 }
 
+// ===== RENDER PRESTASI =====
+
+function renderPrestasi(){
+
+const container =
+document.getElementById(
+'prestasi-list'
+);
+
+if(!container) return;
+
+container.innerHTML =
+prestasi.map(p=>`
+
+<div class="glass rounded-2xl overflow-hidden card-hover">
+
+<img
+src="${p.image_url}"
+class="w-full h-56 object-cover"
+>
+
+<div class="p-5">
+
+<div class="text-gold-light text-xs mb-2">
+${p.category || ''}
+</div>
+
+
+<h3 class="font-bold text-lg mb-2">
+${p.title}
+</h3>
+
+<p class="text-white/60 text-sm leading-relaxed">
+${p.description || ''}
+</p>
+
+</div>
+
+</div>
+
+`).join('');
+
+}
 
 // ===== DATA =====
 let teachers = [];
