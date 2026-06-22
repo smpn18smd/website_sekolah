@@ -2458,12 +2458,27 @@ function closeNewsDetail(){
 }
 // ===== CLOSE SAAT KLIK BACKGROUND =====
 document.addEventListener('click', function(e){
-  const modal =
-    document.getElementById('news-detail-modal');
-  if(e.target === modal){
-    closeNewsDetail();
-  }
+
+const newsModal =
+document.getElementById(
+'news-detail-modal'
+);
+
+if(e.target === newsModal){
+closeNewsDetail();
+}
+
+const prestasiModal =
+document.getElementById(
+'prestasi-detail-modal'
+);
+
+if(e.target === prestasiModal){
+closePrestasiDetail();
+}
+
 });
+
 
 // ===== HERO IMAGE =====
 async function uploadHeroImage(){
