@@ -2071,6 +2071,21 @@ document
 
 }
 
+function closeEditBerita(){
+const modal =
+document.getElementById(
+'edit-berita-modal'
+);
+
+modal.classList.add(
+'hidden'
+);
+
+modal.classList.remove(
+'flex'
+);
+}
+
 // ===== EDIT GURU =====
 async function editGuru(id){
   const guru =
