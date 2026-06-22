@@ -193,20 +193,22 @@ renderPrestasi();
 }
 
 // ===== RENDER PRESTASI =====
-
 function renderPrestasi(){
-
 const container =
 document.getElementById(
 'prestasi-list'
 );
+
 
 if(!container) return;
 
 container.innerHTML =
 prestasi.map(p=>`
 
-<div class="glass rounded-2xl overflow-hidden card-hover">
+<div 
+onclick="openPrestasiDetail(${p.id})"
+class="glass rounded-2xl overflow-hidden card-hover cursor-pointer"
+>
 
 <img
 src="${p.image_url}"
@@ -219,22 +221,25 @@ class="w-full h-56 object-cover"
 ${p.category || ''}
 </div>
 
-
 <h3 class="font-bold text-lg mb-2">
 ${p.title}
 </h3>
 
-<p class="text-white/60 text-sm leading-relaxed">
+<p class="text-white/60 text-sm leading-relaxed line-clamp-3">
 ${p.description || ''}
 </p>
+
+<div class="mt-3 text-gold-light text-xs">
+Klik untuk melihat detail →
+</div>
 
 </div>
 
 </div>
 
 `).join('');
-
 }
+
 
 // ===== DATA =====
 let teachers = [];
