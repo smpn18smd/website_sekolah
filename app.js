@@ -960,7 +960,7 @@ else if(tab==='berita'){
   <!-- ACTION BUTTON -->
   <div class="flex gap-2">
     <button
-      onclick="editBerita(${n.id})"
+      onclick="openEditBerita(${n.id})"
       class="px-3 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs font-semibold flex items-center gap-1 transition"
     >
       <i data-lucide="pencil" style="width:14px;height:14px"></i>
