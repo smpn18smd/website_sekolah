@@ -2071,6 +2071,7 @@ document
 
 }
 
+// ===== CLOSE EDIT BERITA =====
 function closeEditBerita(){
 const modal =
 document.getElementById(
