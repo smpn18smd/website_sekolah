@@ -17,6 +17,36 @@ async function loadStatistikSiswa(){
   renderStatistikSiswaWebsite();
 }
 
+// ===== buat fungsi load total prestasi =====
+async function loadTotalPrestasi(){
+
+  const { count, error } =
+    await supabaseClient
+      .from('prestasi')
+      .select('*',{
+        count:'exact',
+        head:true
+      });
+
+  if(error){
+    console.error(
+      error
+    );
+    return;
+  }
+
+  const el =
+    document.getElementById(
+      'total-prestasi'
+    );
+
+  if(el){
+    el.textContent =
+      count || 0;
+  }
+
+}
+
 // ===== buat fungsi render tampilkan ke website =====
 function renderStatistikSiswaWebsite(){
 
@@ -164,7 +194,6 @@ setAdminTab('statistik');
 let prestasi = [];
 
 // ===== LOAD PRESTASI =====
-
 async function loadPrestasi(){
 
 const {
@@ -191,6 +220,8 @@ return;
 prestasi = data || [];
 renderPrestasi();
 }
+
+
 
 // ===== RENDER PRESTASI =====
 function renderPrestasi(){
