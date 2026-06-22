@@ -2539,9 +2539,9 @@ loadHeroImage();
 
 
 // ===== INIT =====
-loadPrestasi();
 loadTeachers();
 loadNews();
+loadPrestasi();
 loadHeroImage();
 loadStatistikSiswa();
 
