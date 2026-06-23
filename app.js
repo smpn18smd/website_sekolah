@@ -272,7 +272,38 @@ Klik untuk melihat detail →
 }
 
 // ===== Variabel Global EKSTRAKURIKULER =====
-let ekstrakurikuler=[];
+let ekstrakurikuler = [];
+
+// ===== buat fungsi load ekstrakurikuler =====
+async function loadEkstrakurikuler(){
+const {
+data,
+error
+}
+=
+await supabaseClient
+.from('ekstrakurikuler')
+.select('*')
+.order(
+'created_at',
+{
+ascending:false
+}
+);
+
+if(error){
+
+console.error(error);
+
+return;
+
+}
+
+ekstrakurikuler=data || [];
+
+renderEkstrakurikuler();
+
+}
 
 // ===== DATA =====
 let teachers = [];
