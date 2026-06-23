@@ -958,6 +958,116 @@ preview.classList.remove('hidden');
 };
 }
 
+else if(tab==='ekstrakurikuler'){
+
+c.innerHTML=`
+
+<div class="glass rounded-2xl p-6 mb-6">
+
+<h3 class="font-bold text-lg mb-5">
+
+Tambah Ekstrakurikuler
+
+</h3>
+
+<div class="grid gap-4">
+
+<input
+id="ekstra-title"
+placeholder="Nama Ekstrakurikuler"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+>
+
+<input
+id="ekstra-category"
+placeholder="Kategori"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+>
+
+<textarea
+id="ekstra-description"
+placeholder="Deskripsi"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+></textarea>
+
+<input
+id="ekstra-image"
+type="file"
+accept=".jpg,.jpeg,.png,.webp"
+>
+
+<button
+
+onclick="submitEkstra()"
+
+class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
+
+>
+
+Simpan
+
+</button>
+
+</div>
+
+</div>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+${ekstrakurikuler.map(e=>`
+
+<div class="glass rounded-xl p-4">
+
+<img
+src="${e.image_url}"
+class="w-full h-52 object-cover rounded-xl"
+>
+
+
+<h4 class="font-bold mt-3">
+
+${e.title}
+
+</h4>
+
+<p class="text-xs text-white/60">
+
+${e.description}
+
+</p>
+
+<div class="flex gap-2 mt-4">
+
+<button
+onclick="editEkstra(${e.id})"
+class="px-3 py-2 rounded-lg bg-yellow-500/20 text-yellow-300 text-xs"
+>
+
+Edit
+
+</button>
+
+<button
+onclick="hapusEkstra(${e.id},'${e.image_url}')"
+class="px-3 py-2 rounded-lg bg-red-500/20 text-red-300 text-xs"
+>
+
+Hapus
+
+</button>
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+`;
+
+}
+
   
 else if(tab==='berita'){
 
