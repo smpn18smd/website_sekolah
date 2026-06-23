@@ -341,6 +341,54 @@ Klik untuk melihat detail →
 `).join('');
 }
 
+// ===== buat fungsi detail modal ekstrakurikuler =====
+function openEkstraDetail(id){
+const e =
+ekstrakurikuler.find(
+x=>x.id===id
+);
+
+if(!e)return;
+
+document.getElementById(
+'ekstra-detail-image'
+).src=e.image_url;
+
+document.getElementById(
+'ekstra-detail-category'
+).textContent=e.category || '';
+
+document.getElementById(
+'ekstra-detail-title'
+).textContent=e.title;
+
+document.getElementById(
+'ekstra-detail-description'
+).textContent=e.description || '';
+
+const modal =
+document.getElementById(
+'ekstra-detail-modal'
+);
+
+modal.classList.remove('hidden');
+
+modal.style.display='flex';
+
+}
+
+function closeEkstraDetail(){
+
+const modal =
+document.getElementById(
+'ekstra-detail-modal'
+);
+
+modal.style.display='none';
+
+modal.classList.add('hidden');
+
+}
 
 // ===== DATA =====
 let teachers = [];
