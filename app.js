@@ -305,6 +305,43 @@ renderEkstrakurikuler();
 
 }
 
+
+// ===== buat fungsi render ekstrakurikuler =====
+function renderEkstrakurikuler(){
+const container =
+document.getElementById(
+'ekstrakurikuler-list'
+);
+if(!container)return;
+container.innerHTML =
+ekstrakurikuler.map(e=>`
+<div
+onclick="openEkstraDetail(${e.id})"
+class="glass rounded-2xl overflow-hidden card-hover cursor-pointer"
+>
+<img
+src="${e.image_url}"
+class="w-full h-56 object-cover"
+>
+<div class="p-5">
+<div class="text-gold-light text-xs">
+${e.category || ''}
+</div>
+<h3 class="font-bold text-lg mt-2">
+${e.title}
+</h3>
+<p class="text-white/60 text-sm mt-2 line-clamp-3">
+${e.description || ''}
+</p>
+<div class="text-gold-light text-xs mt-4">
+Klik untuk melihat detail →
+</div>
+</div>
+</div>
+`).join('');
+}
+
+
 // ===== DATA =====
 let teachers = [];
 
