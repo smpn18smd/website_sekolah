@@ -1604,6 +1604,69 @@ setAdminTab('prestasi');
 
 }
 
+async function submitEkstra(){
+const title =
+document.getElementById('ekstra-title').value;
+
+const category =
+document.getElementById('ekstra-category').value;
+
+const description =
+document.getElementById('ekstra-description').value;
+
+const file =
+document.getElementById('ekstra-image').files[0];
+
+if(!title || !file){
+
+alert("Data belum lengkap");
+
+return;
+
+}
+
+const compressed =
+await compressImage(file);
+
+const fileName =
+Date.now()+'.webp';
+
+await supabaseClient.storage
+.from('ekstrakurikuler')
+.upload(
+fileName,
+compressed,
+{
+contentType:'image/webp'
+}
+);
+
+const {data:urlData}
+=
+supabaseClient.storage
+.from('ekstrakurikuler')
+.getPublicUrl(fileName);
+
+await supabaseClient
+.from('ekstrakurikuler')
+.insert({
+
+title,
+category,
+description,
+image_url:urlData.publicUrl,
+date:new Date().toLocaleDateString('id-ID')
+
+});
+
+alert("Berhasil ditambahkan");
+
+await loadEkstrakurikuler();
+
+setAdminTab('ekstrakurikuler');
+
+}
+
 // ===== EDIT PRESTASI =====
 async function editPrestasi(id){
 
