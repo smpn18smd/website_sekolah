@@ -271,6 +271,8 @@ Klik untuk melihat detail →
 `).join('');
 }
 
+// ===== Variabel Global EKSTRAKURIKULER =====
+let ekstrakurikuler=[];
 
 // ===== DATA =====
 let teachers = [];
