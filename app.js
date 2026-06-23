@@ -2855,6 +2855,7 @@ loadTeachers();
 loadNews();
 loadPrestasi();
 loadTotalPrestasi();
+loadEkstrakurikuler();
 loadHeroImage();
 loadStatistikSiswa();
 
