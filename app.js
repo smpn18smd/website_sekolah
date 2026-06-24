@@ -1604,6 +1604,7 @@ setAdminTab('prestasi');
 
 }
 
+
 async function submitEkstra(){
 const title =
 document.getElementById('ekstra-title').value;
@@ -1619,7 +1620,9 @@ document.getElementById('ekstra-image').files[0];
 
 if(!title || !file){
 
-alert("Data belum lengkap");
+alert(
+"Nama dan foto wajib diisi"
+);
 
 return;
 
@@ -1631,6 +1634,10 @@ await compressImage(file);
 const fileName =
 Date.now()+'.webp';
 
+const {
+error:uploadError
+}
+=
 await supabaseClient.storage
 .from('ekstrakurikuler')
 .upload(
@@ -1641,12 +1648,30 @@ contentType:'image/webp'
 }
 );
 
-const {data:urlData}
+if(uploadError){
+
+alert(
+uploadError.message
+);
+
+return;
+
+}
+
+const {
+data:urlData
+}
 =
 supabaseClient.storage
 .from('ekstrakurikuler')
-.getPublicUrl(fileName);
+.getPublicUrl(
+fileName
+);
 
+const {
+error
+}
+=
 await supabaseClient
 .from('ekstrakurikuler')
 .insert({
@@ -1655,17 +1680,31 @@ title,
 category,
 description,
 image_url:urlData.publicUrl,
-date:new Date().toLocaleDateString('id-ID')
+date:new Date()
+.toLocaleDateString('id-ID')
 
 });
 
-alert("Berhasil ditambahkan");
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+alert(
+"Ekstrakurikuler berhasil ditambahkan"
+);
 
 await loadEkstrakurikuler();
 
-setAdminTab('ekstrakurikuler');
+setAdminTab(
+'ekstrakurikuler'
+);
 
 }
+
 
 // ===== EDIT PRESTASI =====
 async function editPrestasi(id){
