@@ -1051,9 +1051,7 @@ Edit
 onclick="hapusEkstra(${e.id},'${e.image_url}')"
 class="px-3 py-2 rounded-lg bg-red-500/20 text-red-300 text-xs"
 >
-
 Hapus
-
 </button>
 
 </div>
@@ -1705,6 +1703,60 @@ setAdminTab(
 
 }
 
+async function hapusEkstra(id,imageUrl){
+if(!confirm(
+"Yakin hapus ekstrakurikuler?"
+))
+return;
+
+try{
+
+const fileName =
+imageUrl.split('/').pop();
+
+await supabaseClient.storage
+.from('ekstrakurikuler')
+.remove([
+fileName
+]);
+
+}catch(err){
+
+console.log(err);
+
+}
+
+const {
+error
+}
+=
+await supabaseClient
+.from('ekstrakurikuler')
+.delete()
+.eq(
+'id',
+id
+);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+alert(
+"Ekstrakurikuler berhasil dihapus"
+);
+
+await loadEkstrakurikuler();
+
+setAdminTab(
+'ekstrakurikuler'
+);
+
+}
 
 // ===== EDIT PRESTASI =====
 async function editPrestasi(id){
