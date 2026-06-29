@@ -962,14 +962,11 @@ else if(tab==='ekstrakurikuler'){
 
 c.innerHTML=`
 
+<!-- FORM TAMBAH EKSTRA -->
 <div class="glass rounded-2xl p-6 mb-6">
-
 <h3 class="font-bold text-lg mb-5">
-
 Tambah Ekstrakurikuler
-
 </h3>
-
 <div class="grid gap-4">
 
 <input
