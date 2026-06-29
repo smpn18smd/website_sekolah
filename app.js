@@ -1815,8 +1815,61 @@ await loadEkstrakurikuler();
 setAdminTab(
 'ekstrakurikuler'
 );
+}
+
+
+// ===== EDIT EKSTRA =====
+function editEkstra(id){
+
+const ekstra =
+ekstrakurikuler.find(
+e=>e.id===id
+);
+
+if(!ekstra) return;
+
+document.getElementById(
+'edit-ekstra-id'
+).value =
+ekstra.id;
+
+document.getElementById(
+'edit-ekstra-title'
+).value =
+ekstra.title;
+
+document.getElementById(
+'edit-ekstra-category'
+).value =
+ekstra.category || '';
+
+document.getElementById(
+'edit-ekstra-description'
+).value =
+ekstra.description || '';
+
+const preview =
+document.getElementById(
+'edit-ekstra-preview'
+);
+
+preview.src =
+ekstra.image_url;
+
+preview.classList.remove(
+'hidden'
+);
+
+document
+.getElementById(
+'edit-ekstra-modal'
+)
+.classList.remove(
+'hidden'
+);
 
 }
+
 
 // ===== EDIT PRESTASI =====
 async function editPrestasi(id){
