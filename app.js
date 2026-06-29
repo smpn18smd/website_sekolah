@@ -1002,12 +1002,77 @@ class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
 >
 
 Simpan
+</button>
+</div>
+</div>
 
+
+<!-- MODAL EDIT EKSTRA -->
+<div
+id="edit-ekstra-modal"
+class="hidden glass rounded-2xl p-5 mb-6"
+>
+
+<h3 class="font-bold text-lg mb-4">
+Edit Ekstrakurikuler
+</h3>
+
+<input
+type="hidden"
+id="edit-ekstra-id"
+>
+
+<div class="grid gap-4">
+
+<input
+id="edit-ekstra-title"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+placeholder="Nama Ekstrakurikuler"
+>
+
+<input
+id="edit-ekstra-category"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+placeholder="Kategori"
+>
+
+<textarea
+id="edit-ekstra-description"
+class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10"
+placeholder="Deskripsi"
+></textarea>
+
+<input
+id="edit-ekstra-image"
+type="file"
+accept=".jpg,.jpeg,.png,.webp"
+>
+
+<img
+id="edit-ekstra-preview"
+class="w-40 rounded-xl hidden"
+>
+
+<div class="flex gap-3">
+
+<button
+onclick="updateEkstra()"
+class="btn-primary px-5 py-3 rounded-xl text-navy font-bold"
+>
+Simpan Perubahan
+</button>
+
+<button
+onclick="closeEditEkstra()"
+class="px-5 py-3 rounded-xl bg-white/10"
+>
+Batal
 </button>
 
 </div>
-
 </div>
+</div>
+
 
 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
