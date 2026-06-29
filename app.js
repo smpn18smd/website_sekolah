@@ -1073,11 +1073,9 @@ Batal
 </div>
 </div>
 
-
+<!-- LIST EKSTRAKURIKULER -->
 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
 ${ekstrakurikuler.map(e=>`
-
 <div class="glass rounded-xl p-4">
 
 <img
