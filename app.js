@@ -1822,11 +1822,10 @@ return;
 
 }
 
-alert(
-"Ekstrakurikuler berhasil ditambahkan"
-);
+alert("Ekstrakurikuler berhasil ditambahkan");
 
 await loadEkstrakurikuler();
+await loadTotalEkstrakurikuler();
 
 setAdminTab(
 'ekstrakurikuler'
