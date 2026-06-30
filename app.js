@@ -3464,6 +3464,7 @@ loadNews();
 loadPrestasi();
 loadTotalPrestasi();
 loadEkstrakurikuler();
+loadTotalEkstrakurikuler();
 loadHeroImage();
 loadStatistikSiswa();
 
