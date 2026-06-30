@@ -1818,18 +1818,6 @@ setAdminTab(
 }
 
 
-// ===== CLOSE EDIT EKSTRA =====
-function closeEditEkstra(){
-document
-.getElementById(
-'edit-ekstra-modal'
-)
-.classList.add(
-'hidden'
-);
-}
-
-
 // ===== EDIT EKSTRA =====
 function editEkstra(id){
 
@@ -1878,6 +1866,166 @@ document
 )
 .classList.remove(
 'hidden'
+);
+
+}
+
+
+// ===== CLOSE EDIT EKSTRA =====
+function closeEditEkstra(){
+document
+.getElementById(
+'edit-ekstra-modal'
+)
+.classList.add(
+'hidden'
+);
+}
+
+
+// UPDATE EKSTRAKURIKULER
+async function updateEkstra(){
+const id =
+document.getElementById(
+'edit-ekstra-id'
+).value;
+
+const title =
+document.getElementById(
+'edit-ekstra-title'
+).value;
+
+const category =
+document.getElementById(
+'edit-ekstra-category'
+).value;
+
+const description =
+document.getElementById(
+'edit-ekstra-description'
+).value;
+
+const file =
+document.getElementById(
+'edit-ekstra-image'
+).files[0];
+
+const ekstra =
+ekstrakurikuler.find(
+e=>e.id==id
+);
+
+let image_url =
+ekstra.image_url;
+
+// jika upload gambar baru
+
+if(file){
+
+const compressed =
+await compressImage(file);
+
+const fileName =
+Date.now()+'.webp';
+
+const {
+error:uploadError
+}
+=
+await supabaseClient
+.storage
+.from('ekstrakurikuler')
+.upload(
+fileName,
+compressed,
+{
+contentType:'image/webp'
+}
+);
+
+if(uploadError){
+
+alert(uploadError.message);
+return;
+
+}
+
+const {
+data:urlData
+}
+=
+supabaseClient
+.storage
+.from('ekstrakurikuler')
+.getPublicUrl(
+fileName
+);
+
+image_url =
+urlData.publicUrl;
+
+// hapus foto lama
+
+try{
+
+const oldFile =
+ekstra.image_url
+.split('/')
+.pop();
+
+await supabaseClient
+.storage
+.from('ekstrakurikuler')
+.remove([
+oldFile
+]);
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+// update tabel
+
+const {
+error
+}
+=
+await supabaseClient
+.from('ekstrakurikuler')
+.update({
+
+title,
+category,
+description,
+image_url
+
+})
+.eq(
+'id',
+id
+);
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+alert(
+"Ekstrakurikuler berhasil diperbarui"
+);
+
+closeEditEkstra();
+
+await loadEkstrakurikuler();
+
+setAdminTab(
+'ekstrakurikuler'
 );
 
 }
