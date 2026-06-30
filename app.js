@@ -1881,6 +1881,7 @@ alert(
 );
 
 await loadEkstrakurikuler();
+await loadTotalEkstrakurikuler();
 
 setAdminTab(
 'ekstrakurikuler'
