@@ -47,6 +47,47 @@ async function loadTotalPrestasi(){
 
 }
 
+// ===== TOTAL EKSTRAKURIKULER =====
+async function loadTotalEkstrakurikuler(){
+const {
+count,
+error
+}
+=
+await supabaseClient
+.from('ekstrakurikuler')
+.select(
+'id',
+{
+count:'exact',
+head:true
+}
+);
+
+if(error){
+
+console.error(
+error
+);
+
+return;
+
+}
+
+const el =
+document.getElementById(
+'total-ekstrakurikuler'
+);
+
+if(el){
+
+el.textContent =
+count || 0;
+
+}
+
+}
+
 // ===== buat fungsi render tampilkan ke website =====
 function renderStatistikSiswaWebsite(){
 
