@@ -1124,6 +1124,36 @@ Hapus
 
 `;
 
+
+// ===== PREVIEW GAMBAR EDIT EKSTRA =====
+const editInput =
+document.getElementById(
+'edit-ekstra-image'
+);
+
+if(editInput){
+
+editInput.onchange=function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+const preview =
+document.getElementById(
+'edit-ekstra-preview'
+);
+
+preview.src =
+URL.createObjectURL(file);
+
+preview.classList.remove(
+'hidden'
+);
+}
+}
+
+  
 }
 
   
