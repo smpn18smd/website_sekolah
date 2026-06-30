@@ -1818,6 +1818,18 @@ setAdminTab(
 }
 
 
+// ===== CLOSE EDIT EKSTRA =====
+function closeEditEkstra(){
+document
+.getElementById(
+'edit-ekstra-modal'
+)
+.classList.add(
+'hidden'
+);
+}
+
+
 // ===== EDIT EKSTRA =====
 function editEkstra(id){
 
