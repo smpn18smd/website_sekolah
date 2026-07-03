@@ -20,7 +20,23 @@ html,body{height:100%;margin:0;font-family:'Poppins',sans-serif}
 .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,#d4a853,#f0d68a);transition:width .3s;border-radius:1px}
 .nav-link:hover::after,.nav-link.active::after{width:100%}
 .gradient-text{background:linear-gradient(135deg,#d4a853,#f0d68a,#d4a853);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-gradient{background:linear-gradient(135deg,#0a1628 0%,#1a3a6b 40%,#2d6bc4 100%)}
+
+.hero-gradient{
+background:
+radial-gradient(circle at top right,
+rgba(212,168,83,.18),
+transparent 28%),
+radial-gradient(circle at bottom left,
+rgba(45,107,196,.22),
+transparent 35%),
+linear-gradient(
+135deg,
+#071221 0%,
+#10284a 38%,
+#204f92 100%
+);
+}
+
 .section-hidden{opacity:0;transform:translateY(30px);transition:all .7s ease}
 .section-visible{opacity:1;transform:translateY(0)}
 .btn-primary{background:linear-gradient(135deg,#d4a853,#c49a3f);transition:all .3s;box-shadow:0 4px 15px rgba(212,168,83,.3)}
