@@ -3108,54 +3108,114 @@ const supabaseClient = window.supabase.createClient(
 );
 
 // fungsi kompres berita
-async function compressImage(file) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      img.src = e.target.result;
-    };
-    img.onload = async () => {
-      // ===== MAX WIDTH =====
-      const MAX_WIDTH = 1200;
-      let width = img.width;
-      let height = img.height;
-      if (width > MAX_WIDTH) {
-        height = height * (MAX_WIDTH / width);
-        width = MAX_WIDTH;
-      }
+async function compressImage(file){
 
-      // ===== CANVAS =====
-      const canvas = document.createElement("canvas");
+    return new Promise((resolve)=>{
 
-      canvas.width = width;
-      canvas.height = height;
+        const img = new Image();
 
-      const ctx = canvas.getContext("2d");
+        const reader = new FileReader();
 
-      ctx.drawImage(img, 0, 0, width, height);
+        reader.onload = e=>{
+            img.src = e.target.result;
+        };
 
-      // ===== COMPRESS LOOP =====
-      let quality = 0.9;
-      const targetSize = 350 * 1024;
-      async function generateBlob(q) {
-        return new Promise((res) => {
-          canvas.toBlob(
-            (blob) => res(blob),
-            "image/webp",
-            q
-          );
-        });
-      }
-      let blob = await generateBlob(quality);
-      while (blob.size > targetSize && quality > 0.1) {
-        quality -= 0.05;
-        blob = await generateBlob(quality);
-      }
-      resolve(blob);
-    };
-  });
+        reader.readAsDataURL(file);
+
+        img.onload = async ()=>{
+
+            const targetSize = 50 * 1024;
+
+            let maxWidth = 1200;
+
+            while(true){
+
+                let width = img.width;
+                let height = img.height;
+
+                if(width > maxWidth){
+
+                    height =
+                        height *
+                        (maxWidth / width);
+
+                    width = maxWidth;
+
+                }
+
+                const canvas =
+                    document.createElement("canvas");
+
+                canvas.width = width;
+
+                canvas.height = height;
+
+                const ctx =
+                    canvas.getContext("2d");
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+                let quality = 0.90;
+
+                let blob;
+
+                while(true){
+
+                    blob =
+                    await new Promise(resolve=>{
+
+                        canvas.toBlob(
+
+                            b=>resolve(b),
+
+                            "image/webp",
+
+                            quality
+
+                        );
+
+                    });
+
+                    if(blob.size <= targetSize){
+
+                        resolve(blob);
+
+                        return;
+
+                    }
+
+                    quality -= 0.05;
+
+                    if(quality < 0.30){
+
+                        break;
+
+                    }
+
+                }
+
+                maxWidth -= 100;
+
+                if(maxWidth < 500){
+
+                    resolve(blob);
+
+                    return;
+
+                }
+
+            }
+
+        };
+
+    });
+
 }
 
 
