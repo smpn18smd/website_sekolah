@@ -413,3 +413,224 @@ rgba(212,168,83,.15);
         opacity:1;
     }
 }
+
+
+/* ==========================================================
+   SEARCH MODAL
+========================================================== */
+#search-modal{
+    display:none;
+    opacity:0;
+    transition:
+        opacity .35s ease;
+}
+#search-modal.show{
+    display:flex;
+    opacity:1;
+}
+
+/* ==========================================================
+   SEARCH RESULT CONTAINER
+========================================================== */
+#search-results{
+    scrollbar-width:thin;
+    scrollbar-color:
+        rgba(255,255,255,.25)
+        transparent;
+}
+#search-results::-webkit-scrollbar{
+
+    width:10px;
+}
+#search-results::-webkit-scrollbar-track{
+    background:transparent;
+}
+#search-results::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.18);
+    border-radius:999px;
+}
+#search-results::-webkit-scrollbar-thumb:hover{
+    background:rgba(255,255,255,.35);
+}
+
+/* ==========================================================
+   CATEGORY
+========================================================== */
+.search-category{
+    margin-bottom:40px;
+    animation:
+        fadeUp .45s ease;
+}
+.search-category-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+    font-size:22px;
+    font-weight:700;
+    color:#FFD66B;
+}
+.search-category-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:
+        linear-gradient(
+            to right,
+            rgba(255,214,107,.7),
+            transparent
+        );
+}
+
+/* ==========================================================
+   RESULT GRID
+========================================================== */
+.search-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(260px,1fr));
+    gap:22px;
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+.search-card{
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    border-radius:22px;
+    background:
+        rgba(255,255,255,.05);
+    border:
+        1px solid rgba(255,255,255,.08);
+    transition:
+        .35s;
+    backdrop-filter:
+        blur(18px);
+}
+.search-card:hover{
+    transform:
+        translateY(-8px);
+    border-color:
+        rgba(255,214,107,.45);
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.35);
+}
+.search-card img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+}
+.search-card-body{
+    padding:18px;
+}
+.search-card-title{
+    font-size:18px;
+    font-weight:700;
+    color:white;
+    margin-bottom:8px;
+    line-height:1.4;
+}
+.search-card-text{
+    font-size:14px;
+    color:
+        rgba(255,255,255,.65);
+    line-height:1.7;
+}
+.search-badge{
+    display:inline-flex;
+    padding:
+        5px 12px;
+    border-radius:999px;
+    background:
+        rgba(255,214,107,.15);
+    color:#FFD66B;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+/* ==========================================================
+   HIGHLIGHT
+========================================================== */
+mark{
+    background:
+        linear-gradient(
+            90deg,
+            #FFD54F,
+            #FFC107
+        );
+    color:#111;
+    padding:
+        1px 4px;
+    border-radius:5px;
+    font-weight:700;
+}
+
+/* ==========================================================
+   EMPTY RESULT
+========================================================== */
+.search-empty{
+    text-align:center;
+    padding:90px 30px;
+    animation:
+        fadeUp .5s ease;
+}
+.search-empty-icon{
+    font-size:72px;
+    margin-bottom:20px;
+    opacity:.6;
+}
+.search-empty-title{
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.search-empty-text{
+    color:
+        rgba(255,255,255,.55);
+}
+
+/* ==========================================================
+   HOVER IMAGE
+========================================================== */
+.search-card img{
+    transition:
+        transform .5s ease;
+}
+.search-card:hover img{
+    transform:
+        scale(1.06);
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:
+            translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:
+            translateY(0);
+    }
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+@media(max-width:768px){
+.search-grid{
+grid-template-columns:1fr;
+}
+.search-card img{
+height:190px;
+}
+.search-category-title{
+font-size:20px;
+}
+}
+
