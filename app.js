@@ -3930,5 +3930,7 @@ loadTotalEkstrakurikuler();
 loadHeroImage();
 loadStatistikSiswa();
 
+initGlobalSearch();
+
 lucide.createIcons();
 initScrollAnim();
