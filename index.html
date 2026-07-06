@@ -991,6 +991,43 @@ Batal
     </div>
   </div>
 </div>
+
+
+<!-- ===================================================== -->
+<!-- SEARCH MODAL -->
+<!-- ===================================================== -->
+<div
+id="search-modal"
+class="fixed inset-0 hidden z-[200] bg-black/70 backdrop-blur-md items-center justify-center p-5">
+<div
+class="glass rounded-3xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+    <!-- HEADER -->
+    <div
+    class="flex items-center justify-between border-b border-white/10 px-8 py-6">
+        <div>
+            <h2 class="text-3xl font-bold">
+                Hasil Pencarian
+            </h2>
+            <p
+            id="search-total"
+            class="text-sm text-white/50 mt-1">
+                0 hasil ditemukan
+            </p>
+        </div>
+        <button
+        onclick="closeSearchModal()"
+        class="w-11 h-11 rounded-full bg-white/10 hover:bg-red-500 transition text-xl">
+            ✕
+        </button>
+    </div>
+    <!-- BODY -->
+    <div
+    id="search-results"
+    class="overflow-y-auto p-8 space-y-10">
+    </div>
+</div>
+</div>
+  
   
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
