@@ -3739,6 +3739,187 @@ function getSearchTotal(){
 }
 
 
+/* ==========================================================
+   MEMBUAT CARD HASIL PENCARIAN
+========================================================== */
+function createSearchCard(item, type){
+  let title = "";
+  let description = "";
+  let image = "";
+  let category = "";
+  switch(type){
+    case "berita":
+      title = item.title;
+      description = item.description || "";
+      image = item.image_url;
+      category = item.category || "Berita";
+      break;
+    case "prestasi":
+      title = item.title;
+      description = item.description || "";
+      image = item.image_url;
+      category = item.category || "Prestasi";
+      break;
+    case "guru":
+      title = item.name;
+      description = item.jabatan || "";
+      image = item.photo_url;
+      category = "Guru";
+      break;
+    case "ekstrakurikuler":
+      title = item.title;
+      description = item.description || "";
+      image = item.image_url;
+      category = item.category || "Ekstrakurikuler";
+      break;
+  }
+  return `
+  <div
+    onclick="scrollToSearchResult('${type}',${item.id})"
+    class="glass rounded-xl p-4 cursor-pointer hover:border-gold transition flex gap-4"
+  >
+      <img
+        src="${image}"
+        class="w-20 h-20 rounded-xl object-cover"
+      >
+      <div class="flex-1">
+          <div class="text-xs text-gold-light mb-1">
+            ${category}
+          </div>
+          <div class="font-bold">
+            ${highlightKeyword(title,searchKeyword)}
+          </div>
+          <div class="text-xs text-white/60 mt-2 line-clamp-2">
+            ${highlightKeyword(description,searchKeyword)}
+          </div>
+      </div>
+  </div>
+  `;
+}
+
+
+/* ==========================================================
+   MENAMPILKAN HASIL PENCARIAN
+========================================================== */
+function renderSearchResults(){
+  const container =
+    document.getElementById(
+      "search-results"
+    );
+  if(!container) return;
+  if(searchKeyword===""){
+    container.classList.add("hidden");
+    container.innerHTML="";
+    return;
+  }
+  const total =
+    getSearchTotal();
+  if(total===0){
+    container.classList.remove("hidden");
+    container.innerHTML=`
+      <div class="glass rounded-2xl p-8 text-center text-white/60">
+        Tidak ada hasil pencarian.
+      </div>
+    `;
+    return;
+  }
+  container.classList.remove("hidden");
+  container.innerHTML=`
+<h2 class="text-xl font-bold mb-6">
+Hasil Pencarian
+<span class="text-gold-light">
+(${total})
+</span>
+</h2>
+<div class="space-y-4">
+${searchResults.berita.map(item=>
+createSearchCard(item,"berita")
+).join("")}
+${searchResults.prestasi.map(item=>
+createSearchCard(item,"prestasi")
+).join("")}
+${searchResults.guru.map(item=>
+createSearchCard(item,"guru")
+).join("")}
+${searchResults.ekstrakurikuler.map(item=>
+createSearchCard(item,"ekstrakurikuler")
+).join("")}
+</div>
+`;
+}
+
+
+/* ==========================================================
+   INIT GLOBAL SEARCH
+========================================================== */
+function initGlobalSearch(){
+  const input =
+    document.getElementById(
+      "global-search"
+    );
+  if(!input) return;
+  input.addEventListener(
+    "input",
+    debounce(e=>{
+      performSearch(
+        e.target.value
+      );
+    })
+  );
+}
+
+
+/* ==========================================================
+   SCROLL MENUJU HASIL
+========================================================== */
+function scrollToSearchResult(type,id){
+  document
+    .getElementById("search-results")
+    ?.classList.add("hidden");
+  document
+    .getElementById("global-search")
+    .value="";
+  searchKeyword="";
+  switch(type){
+    case "berita":
+      document
+      .getElementById("berita")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
+      setTimeout(()=>{
+        openNewsDetail(id);
+      },500);
+      break;
+    case "prestasi":
+      document
+      .getElementById("prestasi")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
+      setTimeout(()=>{
+        openPrestasiDetail(id);
+      },500);
+      break;
+    case "guru":
+      document
+      .getElementById("guru")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
+      break;
+    case "ekstrakurikuler":
+      document
+      .getElementById("ekstrakurikuler")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
+      break;
+  }
+}
+
+
+
 // ===== INIT =====
 loadTeachers();
 loadNews();
