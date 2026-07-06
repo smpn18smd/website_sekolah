@@ -97,8 +97,34 @@ tailwind.config={theme:{extend:{fontFamily:{poppins:['Poppins','sans-serif']},co
        <p id="hero-subtitle" class="relative z-10 text-base lg:text-lg text-white/60 mb-8 max-w-lg leading-relaxed">Membangun masa depan cerah melalui pendidikan berkualitas, karakter unggul, dan prestasi gemilang di SMP Negeri 18 Samarinda.</p>
        <div class="flex flex-wrap gap-4"><a href="#visi-misi" class="btn-primary px-6 py-3 rounded-xl text-navy font-bold text-sm inline-flex items-center gap-2"><i data-lucide="compass" style="width:18px;height:18px"></i>Jelajahi Sekolah</a> <a href="#berita" class="btn-outline px-6 py-3 rounded-xl text-gold-light font-semibold text-sm inline-flex items-center gap-2"><i data-lucide="newspaper" style="width:18px;height:18px"></i>Lihat Berita</a>
        </div>
-      </div>
 
+
+<!-- ========================================= -->
+<!-- GLOBAL SEARCH -->
+<!-- ========================================= -->
+<div class="max-w-3xl mx-auto mt-10">
+    <div
+        class="glass rounded-2xl p-2 flex items-center gap-3 border border-white/10 shadow-xl">
+        <i
+            data-lucide="search"
+            class="text-gold-light ml-3">
+        </i>
+        <input
+            id="global-search"
+            type="text"
+            placeholder="Cari berita, prestasi, guru, ekstrakurikuler..."
+            class="w-full bg-transparent outline-none px-2 py-3 text-white placeholder:text-white/40"
+        >
+        <button
+            onclick="clearSearch()"
+            class="px-4 text-white/50 hover:text-white transition">
+            ✕
+        </button>
+    </div>
+</div>
+
+       
+      </div>   
       <div class="flex justify-center anim-fade-up delay-3 hero-mobile-container hero-mobile">
       
        <div class="relative">
