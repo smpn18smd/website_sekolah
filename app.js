@@ -3515,7 +3515,6 @@ async function loadHeroImage(){
 
 }
 
-// loadHeroImage();
 
 
 /* ==========================================================
