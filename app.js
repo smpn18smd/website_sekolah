@@ -3518,6 +3518,228 @@ async function loadHeroImage(){
 loadHeroImage();
 
 
+/* ==========================================================
+   GLOBAL SEARCH
+========================================================== */
+let searchKeyword = "";
+let searchResults = {
+  berita: [],
+  prestasi: [],
+  guru: [],
+  ekstrakurikuler: []
+};
+let searchDebounce = null;
+/* ==========================================================
+   DEBOUNCE
+========================================================== */
+function debounce(callback, delay = 300){
+  return (...args)=>{
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(()=>{
+      callback(...args);
+    }, delay);
+  };
+}
+
+/* ==========================================================
+   ESCAPE REGEX
+========================================================== */
+function escapeRegex(text){
+  return text.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&"
+  );
+}
+
+/* ==========================================================
+   HIGHLIGHT KEYWORD
+========================================================== */
+function highlightKeyword(text, keyword){
+  if(!text) return "";
+  if(!keyword) return text;
+  const regex = new RegExp(
+    "(" + escapeRegex(keyword) + ")",
+    "gi"
+  );
+  return text.replace(
+    regex,
+    `<mark class="bg-yellow-400 text-black px-1 rounded">$1</mark>`
+  );
+}
+
+/* ==========================================================
+   NORMALIZE TEXT
+========================================================== */
+function normalizeText(text){
+  return String(text || "")
+    .toLowerCase()
+    .trim();
+}
+
+/* ==========================================================
+   CEK APAKAH DATA COCOK
+========================================================== */
+function isMatch(item, fields, keyword){
+  keyword = normalizeText(keyword);
+  return fields.some(field=>{
+    return normalizeText(
+      item[field]
+    ).includes(keyword);
+  });
+}
+
+/* ==========================================================
+   SEARCH BERITA
+========================================================== */
+function searchNews(keyword){
+  if(!keyword) return [];
+  return news.filter(item=>
+    isMatch(
+      item,
+      [
+        "title",
+        "description",
+        "category"
+      ],
+      keyword
+    )
+  );
+}
+
+/* ==========================================================
+   SEARCH PRESTASI
+========================================================== */
+function searchPrestasi(keyword){
+  if(!keyword) return [];
+  return prestasi.filter(item=>
+    isMatch(
+      item,
+      [
+        "title",
+        "description",
+        "category"
+      ],
+      keyword
+    )
+  );
+}
+
+/* ==========================================================
+   SEARCH GURU
+========================================================== */
+function searchTeachers(keyword){
+  if(!keyword) return [];
+  return teachers.filter(item=>
+    isMatch(
+      item,
+      [
+        "name",
+        "jabatan",
+        "keterangan"
+      ],
+      keyword
+    )
+  );
+}
+
+/* ==========================================================
+   SEARCH EKSTRAKURIKULER
+========================================================== */
+function searchEkstrakurikuler(keyword){
+  if(!keyword) return [];
+  return ekstrakurikuler.filter(item=>
+    isMatch(
+      item,
+      [
+        "title",
+        "description",
+        "category"
+      ],
+      keyword
+    )
+  );
+}
+
+/* ==========================================================
+   SORT BERDASARKAN JUDUL PALING COCOK
+========================================================== */
+function sortByRelevance(data, keyword, field){
+  keyword = normalizeText(keyword);
+  return data.sort((a,b)=>{
+    const aTitle =
+      normalizeText(a[field]);
+    const bTitle =
+      normalizeText(b[field]);
+    const aStart =
+      aTitle.startsWith(keyword);
+    const bStart =
+      bTitle.startsWith(keyword);
+    if(aStart && !bStart) return -1;
+    if(!aStart && bStart) return 1;
+    const aIndex =
+      aTitle.indexOf(keyword);
+    const bIndex =
+      bTitle.indexOf(keyword);
+    return aIndex - bIndex;
+  });
+}
+
+/* ==========================================================
+   SEARCH SEMUA DATA
+========================================================== */
+function performSearch(keyword){
+  keyword = keyword.trim();
+  searchKeyword = keyword;
+  if(keyword === ""){
+    searchResults = {
+      berita: [],
+      prestasi: [],
+      guru: [],
+      ekstrakurikuler: []
+    };
+    renderSearchResults();
+    return;
+  }
+  searchResults.berita =
+    sortByRelevance(
+      searchNews(keyword),
+      keyword,
+      "title"
+    );
+  searchResults.prestasi =
+    sortByRelevance(
+      searchPrestasi(keyword),
+      keyword,
+      "title"
+    );
+  searchResults.guru =
+    sortByRelevance(
+      searchTeachers(keyword),
+      keyword,
+      "name"
+    );
+  searchResults.ekstrakurikuler =
+    sortByRelevance(
+      searchEkstrakurikuler(keyword),
+      keyword,
+      "title"
+    );
+  renderSearchResults();
+}
+
+/* ==========================================================
+   TOTAL HASIL
+========================================================== */
+function getSearchTotal(){
+  return (
+    searchResults.berita.length +
+    searchResults.prestasi.length +
+    searchResults.guru.length +
+    searchResults.ekstrakurikuler.length
+  );
+}
+
+
 // ===== INIT =====
 loadTeachers();
 loadNews();
